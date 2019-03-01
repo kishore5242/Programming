@@ -65,7 +65,7 @@ public class Flashcard implements Comparable<Flashcard>{
 
 	@Override
 	public int compareTo(Flashcard o) {
-		return o.getPosition() - this.position;
+		return this.position - o.getPosition();
 	}
 	
 

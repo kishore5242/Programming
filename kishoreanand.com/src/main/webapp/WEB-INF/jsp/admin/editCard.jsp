@@ -4,9 +4,15 @@
 <jsp:include page="/WEB-INF/jsp/header/header.jsp" />
 
 <!-- jQuery-Based-HTML5-WYSIWYG -->
-<link rel="stylesheet" href="/css/jquery.wysiwygEditor.css">
-<!-- <script src="//code.jquery.com/jquery-2.1.4.js"></script> -->
-<script src="/js/jquery.wysiwygEditor.js"></script>
+<!-- 
+<link rel="stylesheet" href="/css/jquery-te-1.4.0.css">
+<script src="/js/jquery-te-1.4.0.min.js"></script> -->
+
+<link rel="stylesheet" type="text/css" href="/css/simditor.css" />
+<script type="text/javascript" src="/js/module.js"></script>
+<script type="text/javascript" src="/js/hotkeys.js"></script>
+<script type="text/javascript" src="/js/uploader.js"></script>
+<script type="text/javascript" src="/js/simditor.js"></script>
 
 </head>
 <body>
@@ -90,10 +96,12 @@
 </body>
 
 <script type="text/javascript">
-	$('#back').wysiwygEditor();
-	
-	
-	
-	
+
+	//$("#back").jqte();
+Simditor.locale = 'en-US';
+var editor = new Simditor({
+	  textarea: $('#back')
+	  //optional options
+	});	
 </script>
 </html>

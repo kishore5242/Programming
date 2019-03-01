@@ -68,6 +68,16 @@ ul.listMenu {
 	text-decoration: none;
 }
  */
+ 
+ .cardControlRow {
+ 	margin-right: -15px;
+    margin-left: -15px;
+    /* border: solid grey 1px; */
+    padding: 10px;
+    border-radius: 10px;
+    background: #f2f2f2;
+ }
+ 
 .controls {
 	margin-bottom: 20px;
 }
@@ -76,10 +86,14 @@ ul.listMenu {
 	padding: 10px;
 	margin-bottom: 10px;
 }
- 
-.panel-title .panelFrontRight {
-	float: right;
+
+.panel-default>.panel-heading {
+    color: white;
+    background-color: #b35900;
+    border: none;
+    padding: 18px;
 }
+
 
 /*
 .panel-title .trigger .collapseGlyph:before {
@@ -122,16 +136,43 @@ ul.listMenu {
 	word-wrap: break-word; 
 }
 
-.posNum {
-    font-size: 13px;
+.cardControl {
+	font-size: 13px;
     color: #cccccc;
+    /* padding: 0px 10px 0px 10px; */
 }
 
 .editCardGlyph {
 	cursor: pointer;
+	font-size: 10px;
+	float: right;
+}
+
+.card-back-text img {
+    max-width: 100%;
+    height: auto;
 }
 
 img.img-circle.profile-pic {
     width: 100%;
     max-width: 200px;
+}
+
+
+/* text editor */
+
+ a.jqte_tool_label.unselectable {
+    height: 21px !important;
+    padding: 0px 5px 0px 5px !important;
+}
+
+.jqte {
+    border: none !important;
+    margin-top: 5px !important;
+    width: 100%;
+}
+
+.jqte_editor img {
+    max-width: 100%;
+    height: auto;
 }
