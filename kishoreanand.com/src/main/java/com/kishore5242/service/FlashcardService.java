@@ -6,13 +6,16 @@ import com.kishore5242.tests.bean.Flashcard;
 
 public interface FlashcardService {
 
-	public void createFlashcard(Flashcard flashcard);
+	public void createFlashcard(Flashcard flashcard, Integer topic_id);
 	
 	public List<Flashcard> getAllFlashcards();
+	
+	public List<Flashcard> getAllFlashcardsByTopicId(Integer topic_id);
 	
 	public void removeFlashcard(int id);
 
 	Flashcard getFlashcard(int id);
 
-	void updateFlashcard(Flashcard flashcard);
+	void updateFlashcard(Flashcard flashcard, Integer topic_id);
+	
 }

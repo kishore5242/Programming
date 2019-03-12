@@ -1,12 +1,13 @@
 package com.kishore5242.tests.bean;
 
-import java.util.Comparator;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Flashcard implements Comparable<Flashcard>{
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	@Column(name = "flashcard_id")
+	private int flashcard_id;
 	
 	@Column(name="stream")
 	private String stream;
@@ -31,12 +33,25 @@ public class Flashcard implements Comparable<Flashcard>{
 	@Column(name="position")
 	private int position;
 	
+	@Column(name="color")
+	private String color;
 	
-	public int getId() {
-		return id;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="topic_id", nullable = false)
+	private Topic topic;
+	
+
+	public int getFlashcard_id() {
+		return flashcard_id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setFlashcard_id(int flashcard_id) {
+		this.flashcard_id = flashcard_id;
+	}
+	public Topic getTopic() {
+		return topic;
+	}
+	public void setTopic(Topic topic) {
+		this.topic = topic;
 	}
 	public String getStream() {
 		return stream;
@@ -63,6 +78,12 @@ public class Flashcard implements Comparable<Flashcard>{
 		this.position = position;
 	}
 
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
 	@Override
 	public int compareTo(Flashcard o) {
 		return this.position - o.getPosition();

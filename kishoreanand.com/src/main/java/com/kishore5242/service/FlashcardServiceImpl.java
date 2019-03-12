@@ -3,7 +3,6 @@ package com.kishore5242.service;
 import java.util.Collections;
 import java.util.List;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +18,8 @@ public class FlashcardServiceImpl implements FlashcardService {
 	FlashcardDao flashcardDao;
 	
 	@Override
-	public void createFlashcard(Flashcard flashcard) {
-		flashcardDao.addFlashcard(flashcard);
+	public void createFlashcard(Flashcard flashcard, Integer topic_id) {
+		flashcardDao.addFlashcard(flashcard, topic_id);
 		
 	}
 	
@@ -45,8 +44,18 @@ public class FlashcardServiceImpl implements FlashcardService {
 	}
 	
 	@Override
-	public void updateFlashcard(Flashcard flashcard) {
-		flashcardDao.updateFlashcard(flashcard);
+	public void updateFlashcard(Flashcard flashcard, Integer topic_id) {
+		flashcardDao.updateFlashcard(flashcard, topic_id);
+	}
+
+	@Override
+	public List<Flashcard> getAllFlashcardsByTopicId(Integer topic_id) {
+		
+		List<Flashcard> flashcards = flashcardDao.getAllFlashcardsByTopicId(topic_id);
+		Collections.sort(flashcards);
+		
+		return flashcards;
+		
 	}
 
 }
