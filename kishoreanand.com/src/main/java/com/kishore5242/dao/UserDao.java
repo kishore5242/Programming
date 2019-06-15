@@ -10,4 +10,6 @@ public interface UserDao {
 	
 	void saveUser(User user, Set<String> roles);
 
+	void updateUser(User user);
+
 }

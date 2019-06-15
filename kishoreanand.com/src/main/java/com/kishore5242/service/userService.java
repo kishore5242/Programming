@@ -9,6 +9,11 @@ public interface userService {
 	boolean userExists(String username);
 
 	void saveUser(User user, Set<String> roles);
+	
+	void updateUser(User user);
 
+	User findUserByUsername(String username);
+
+	void updateUserPassword(User user);
 	
 }

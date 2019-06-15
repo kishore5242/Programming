@@ -64,4 +64,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
 	}
+	
 }

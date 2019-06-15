@@ -47,6 +47,8 @@ public class AppStreamController {
 
 		streamService.createStream(stream);
 
+		refreshStreams(request, authentication);
+		
 		response.sendRedirect(redirectTo);
 	}
 	
@@ -84,7 +86,7 @@ public class AppStreamController {
 	
 	
 	@RequestMapping(value = "/updateStream", method = RequestMethod.POST)
-	public void updateStream(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void updateStream(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 		
 		String stream_id_str = request.getParameter("stream_id");
 		String stream_name = request.getParameter("stream_name");
@@ -103,11 +105,13 @@ public class AppStreamController {
 		
 		streamService.updateStream(stream);
 		
+		refreshStreams(request, authentication);
+		
 		response.sendRedirect(redirectTo);
 	}
 	
 	@RequestMapping(value = "/deleteStream", method = RequestMethod.POST)
-	public void deleteStream(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void deleteStream(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 		
 		String stream_id_str = request.getParameter("stream_id");
 		String redirectTo = "/streams";
@@ -120,8 +124,18 @@ public class AppStreamController {
 		
 		streamService.deleteStream(stream_id);
 		
+		refreshStreams(request, authentication);
+		
 		response.sendRedirect(redirectTo);
 	}
 
+	private void refreshStreams(HttpServletRequest request, Authentication authentication){
+		
+		String loggedInUser = SecurityUtil.getLoggedInUserName(authentication);
+		
+		List<Stream> streams = streamService.getAllStreamsByUser(loggedInUser);
+		
+		request.getSession().setAttribute("streams", streams);
+	}
 
 }

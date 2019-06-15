@@ -4,11 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kishore5242.dao.FlashcardDao;
 import com.kishore5242.tests.bean.Flashcard;
+import com.kishore5242.util.SecurityUtil;
 
 @Service
 @Transactional
@@ -56,6 +58,20 @@ public class FlashcardServiceImpl implements FlashcardService {
 		
 		return flashcards;
 		
+	}
+
+	@Override
+	public String saveOrder(List<String> orderArray) {
+		
+		String status = "success";
+		
+		if(SecurityUtil.checkLogIn()){
+			flashcardDao.saveOrder(orderArray);
+		} else {
+			status = "Unauthorized";
+		}
+
+		return status;
 	}
 
 }

@@ -17,5 +17,7 @@ public interface FlashcardService {
 	Flashcard getFlashcard(int id);
 
 	void updateFlashcard(Flashcard flashcard, Integer topic_id);
+
+	public String saveOrder(List<String> orderArray);
 	
 }

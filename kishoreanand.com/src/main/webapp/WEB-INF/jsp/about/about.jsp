@@ -7,13 +7,13 @@
 
 	<div class="container">
 		<div class="row">
+			<div class="col-xs-8">
+				<h2 class="notCard">Kishore Anand</h2>
+				<h4 class="notCard">Passionate programmer who codes to express creativity and thought process</h4>
+			</div>
 			<div class="col-xs-4">
 				<img src="img/profile-pic.jpg" class="img-circle profile-pic" alt="Kishore Anand" >
-			</div>
-			<div class="col-xs-8">
-				<h3>Kishore Anand</h3>
-				<p>Passionate programmer who codes to express creativity and thought process</p>
-			</div>
+			</div>		
 		</div>
 	</div>
 

@@ -51,4 +51,15 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
+	@Override
+	public void updateUser(User user) {
+		Session session = sessionFactory.getCurrentSession();
+		User u = session.get(User.class, user.getUsername());
+		u.setDisplayName(user.getDisplayName());
+		u.setPassword(user.getPassword());
+		u.setEnabled(user.isEnabled());
+		u.setUserRole(user.getUserRole());
+		session.update(u);
+	}
+
 }

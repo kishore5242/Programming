@@ -15,6 +15,7 @@ import javax.persistence.Table;
 public class User {
 
 	private String username;
+	private String displayName;
 	private String password;
 	private boolean enabled;
 	private Set<UserRole> userRole = new HashSet<UserRole>(0);
@@ -22,13 +23,14 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String password, boolean enabled) {
+	public User(String username, String displayName, String password, boolean enabled) {
 		this.username = username;
+		this.displayName = displayName;
 		this.password = password;
 		this.enabled = enabled;
 	}
 
-	public User(String username, String password, 
+	public User(String username, String email, String password, 
 		boolean enabled, Set<UserRole> userRole) {
 		this.username = username;
 		this.password = password;
@@ -45,6 +47,15 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	@Column(name = "display_name", nullable = false, length = 45)
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	@Column(name = "password", 

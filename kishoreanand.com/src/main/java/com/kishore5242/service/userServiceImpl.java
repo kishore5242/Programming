@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kishore5242.dao.UserDao;
+import com.kishore5242.tests.bean.User;
 
 @Service
 @Transactional
@@ -37,5 +38,21 @@ public class userServiceImpl implements userService {
         
         userDao.saveUser(user, roles);
     }
+
+	@Override
+	public User findUserByUsername(String username) {
+		return userDao.findByUserName(username);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		userDao.updateUser(user);
+	}
+	
+	@Override
+	public void updateUserPassword(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userDao.updateUser(user);
+	}
 
 }

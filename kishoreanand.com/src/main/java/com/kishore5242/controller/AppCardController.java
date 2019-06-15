@@ -2,6 +2,8 @@ package com.kishore5242.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kishore5242.service.FlashcardService;
 import com.kishore5242.service.TopicService;
@@ -172,5 +175,19 @@ public class AppCardController {
 		flashcardService.updateFlashcard(flashcard, topic_id);
 
 		response.sendRedirect(redirectTo);
+	}
+	
+	
+	@RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
+	@ResponseBody
+	public String saveOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+				
+		HashMap<String, String[]> hm = new HashMap<String, String[]>();
+		hm.putAll(request.getParameterMap());
+		List<String> orderArray = Arrays.asList(hm.get("orderArray[]"));
+		
+		String returnStr = flashcardService.saveOrder(orderArray);
+		
+		return returnStr;
 	}
 }

@@ -18,4 +18,6 @@ public interface FlashcardDao {
 
 	List<Flashcard> getAllFlashcardsByTopicId(Integer topic_id);
 
+	void saveOrder(List<String> orderArray);
+
 }

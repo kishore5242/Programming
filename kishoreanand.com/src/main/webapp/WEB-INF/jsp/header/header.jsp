@@ -1,15 +1,21 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
 <title>KishoreAnand.com</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
 <!-- common styles -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<c:url value="/css/main.css" var="jstlCss" />
-<link href="${jstlCss}" rel="stylesheet" />
+<link rel="stylesheet" href="/css/main.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+
 
 <!-- context path variable -->
 <%-- <c:url value="${pageContext.request.contextPath}" var="contextPath"/> --%>
@@ -17,87 +23,230 @@
 <!-- common JavaScripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <!-- code mirror -->
 <script src="/js/codemirror.js"></script>
 <link rel="stylesheet" href="/css/codemirror.css">
 <script src="/mode/javascript/javascript.js"></script>
 
+
+<style type="text/css">
+
+.navbar {
+    min-height: 40px;
+}
+
+.topnav ul {
+    width: 100%;
+    min-height: 40px;
+}
+
+.topnav li a {
+    color: white;
+}
+
+.topnav li a:hover {
+    background-color: grey;
+}
+
+.navbar-nav {
+    margin: 0;
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+  display: none;
+}
+
+/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+@media screen and (max-width: 600px) {
+  .topnav {
+  	position: relative;
+  }
+  .topnav li {
+  	display: none;
+  }
+  .topnav li.active {
+  	display: block;
+  }
+  .topnav .icon {
+ 	display: block;
+	position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px 15px 15px 15px;
+    color: white;
+    width: 70%;
+    text-align: right;
+  }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+@media screen and (max-width: 600px) {
+  .topnav.responsive li {
+    display: block;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .topnav.responsive .icon {
+    text-align: right;
+    width: 65%;
+  }
+
+}
+
+
+
+</style>
+
 </head>
 
 <body>
-	<!-- nav bar -->
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<!-- 
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">&lt;/&gt;</a>
-			</div>
-			 -->
-			<ul class="nav navbar-nav">		
-		      <li><a href="${pageContext.request.contextPath}/">Home</a></li>
-		      <li class="dropdown">
-		      	<a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/cards">
-		      		Flash Cards <span class="caret"></span>
-		      	</a>
-		        <ul class="dropdown-menu">
-		          <li><a onclick="openPage('/cards/java');">Java</a></li>
-		          <%-- <li><a href="${pageContext.request.contextPath}/cards/javascript">JavaScript</a></li> --%>
-		          <%-- <li><a href="${pageContext.request.contextPath}/cards/spring">Spring</a></li> --%>
-		        </ul>
-		      </li>
-		      <%--<li><a href="${pageContext.request.contextPath}/tests">Tests</a></li>--%>
-		      <li><a href="${pageContext.request.contextPath}/about">About</a></li>
-		    </ul>
-		</div>
-	</nav>
-	
-		
-	<!-- Delete Card Modal -->
-	<div id="deleteCardModal" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
-	
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Are you sure you want to delete this card?</h4>
-	      </div>
-	      <div class="modal-body">
-	        <p>The card will be deleted permanently if clicked on 'Yes'</p>
-	        <p>If you don't want to delete please click on 'Cancel'</p>
-	      </div>
-	      <div class="modal-footer">
 
-		     <form action="/deleteFlashcard" method="post">
-				<div class="form-group">
-					<input type="hidden" class="form-control" id="deleteId" name="deleteId">
-					<input type="hidden" class="form-control" id="deleteStream" name="deleteStream">
-				</div>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button type="submit" class="btn btn-danger">Yes</button>
-			</form>
-	        
-	      </div>
-	    </div>
-	
-	  </div>
+<div class="navbar navbar-inverse" id="topFixedNav">	
+	<div class="topnav" id="myTopnav">
+		<ul class="nav navbar-nav">		
+		     <li class="reqInResp"><a href="${pageContext.request.contextPath}/">Home</a></li>
+		     <li class="dropdown">
+		     	<a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/cards">
+		     		Flashcards<span class="caret"></span>
+		     	</a>
+		     	<ul class="dropdown-menu">
+		    	<c:forEach items="${sessionScope.streams}" var="stream" varStatus="loop">
+					<li class="navSubmenu"><a href="${pageContext.request.contextPath}/topics?stream_id=${stream.stream_id}">${stream.stream_name}</a></li>
+				</c:forEach>
+		     	</ul>
+		     </li>
+		     <li><a href="${pageContext.request.contextPath}/about">About</a></li>
+		     <sec:authorize access="!isAuthenticated()">
+		     	<li><a href="${pageContext.request.contextPath}/login">Login</a></li>
+		     </sec:authorize>
+		     <sec:authorize access="isAuthenticated()">
+		     	<li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+		     </sec:authorize> 
+		</ul>
+		<div class="icon" onclick="toggleResponsive()">
+	    	<i class="fa fa-bars"></i>
+	 	</div>
 	</div>
-	
+</div>
 	
 	<div id="loading" hidden="true"></div>
 	
 </body>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+
+/////////////// remove 8443 from url /////////////////////////////////
+if(window.location.href.includes("kishoreanand.com:8443")){
+	window.open(window.location.href.replace('kishoreanand.com:8443','kishoreanand.com'));
+}
+//////////////////////////////////////////////////////////////////////
+
+
+
+/////////////// navbar script /////////////////////////////////////////
+
+$(document).ready(function () {
         var url = window.location;
         $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
         $('ul.nav a').filter(function() {
              return this.href == url;
         }).parent().addClass('active');
+        
+        fixContainerMargin();
     });
+
+$(window).resize(function() {
+	fixContainerMargin();
+});
+
+/* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
+var header = $('#topFixedNav'),
+headerHeight = header.height(),
+treshold = 0,
+lastScroll = 0;
+
+$(document).on('scroll', function (evt) {
+    var newScroll = $(document).scrollTop(),
+        diff = newScroll-lastScroll;
+
+    // normalize treshold range
+    treshold = (treshold+diff>headerHeight) ? headerHeight : treshold+diff;
+    treshold = (treshold < 0) ? 0 : treshold;
+
+    header.css('top', (-treshold)+'px');
+
+    lastScroll = newScroll;
+});
+
+
+
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function toggleResponsive() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+
+function fixContainerMargin(){
+	$('.container').css('margin-top', $('#topFixedNav').height())
+}
+
+///////////////////////////////////////////////////////////////////
+    
+    
+///////// password and confirm password ////////////
+    
+    $('#password').on('change', function(){
+    	validatePassword();
+    });
+
+    $('#confirmPassword').on('keyup', function(){
+    	validatePassword();
+    });
+
+    function validatePassword() {
+    	var password = $('#password').val();
+    	var confirmPassword = $('#confirmPassword').val();
+    	
+    	if(password != confirmPassword){
+    		$('#confirmPassword').get(0).setCustomValidity("Passwords don't match");
+    	} else {
+    		$('#confirmPassword').get(0).setCustomValidity("");
+    	}
+    }
+    
+//////////////////////////////////////////////////
+
+
+
+////////////////// loader //////////////////////////
+
+	function hideLoader() {
+	   $('#loading').hide();
+	}
+	
+	$(window).ready(hideLoader);
+	// Strongly recommended: Hide loader after 20 seconds, even if the page hasn't finished loading
+	setTimeout(hideLoader, 20 * 1000);
+	
+	function showLoader(){
+		$('#loading').show();
+		setTimeout(hideLoader, 20 * 1000);
+	}
+
+////////////////////////////////////////////////////
+
+    
 </script>
 
 </html>

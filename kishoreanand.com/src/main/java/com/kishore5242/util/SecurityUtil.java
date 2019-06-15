@@ -7,25 +7,23 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.kishore5242.controller.AppCardController;
-
 public class SecurityUtil {
 	
 	private static final Logger logger = LogManager.getLogger(SecurityUtil.class);
 
 	public static String getLoggedInUserName(Authentication authentication) {
-		String loggedInUser = "admin";
+		String loggedInUser = "kishore5242@gmail.com";
 		
 		if(authentication != null){
 			loggedInUser = authentication.getName();
 		}
-		
+				
 		return loggedInUser;
 	}
 	
 	public static String getLoggedInUserName(){
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = "admin";
+		String username = "kishore5242@gmail.com";
 		if (principal instanceof UserDetails) {
 		  username = ((UserDetails)principal).getUsername();
 		}
@@ -42,6 +40,18 @@ public class SecurityUtil {
 			logger.warn(loggedInUser + " is not authorized to perform this action!");
 			throw new AccessDeniedException(loggedInUser + " is not authorized to perform this action!");
 		}
+	}
+	
+	public static boolean checkLogIn() {
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (!(principal instanceof UserDetails)) {
+			logger.warn("User has not logged in!");
+			return false;
+		} else {
+			return true;
+		}
+
 	}
 	
 }

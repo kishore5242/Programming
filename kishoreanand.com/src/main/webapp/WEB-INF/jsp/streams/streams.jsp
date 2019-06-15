@@ -15,7 +15,7 @@
 					<%-- <input type="button" class="btn navButton" onclick="window.location.href='${pageContext.request.contextPath}/addStream'" value="Add a new stream"> --%>
 				</div>
 				<div class="col-xs-6 rightControls">
-					<input type="button" class="btn btn-info navButton" onclick="window.location.href='${pageContext.request.contextPath}/addStream'" value="Add a new stream">
+					<input type="button" class="btn btn-coffee navButton" onclick="window.location.href='${pageContext.request.contextPath}/addStream'" value="Add a new stream">
 				</div>
 			</div>
 		</sec:authorize>

@@ -14,37 +14,47 @@
 <script type="text/javascript" src="/js/uploader.js"></script>
 <script type="text/javascript" src="/js/simditor.js"></script>
 
-
 </head>
 <body>
 
 	<div class="container">
-		<h2>Add a Flashcard</h2>
+		<h3 class="notCard">Add a Flashcard</h3>
 		<form action="/saveFlashcard" method="post">
 			<div class="form-group">
-			  <label for="stream">Stream:</label>
-			  <select class="form-control" id="stream" name="stream">
-			    <option value="Java" selected="selected">Java</option>
-			    <option value="JavaScript">JavaScript</option>
-			  </select>
+			  <label for="topic_name">Topic:</label>
+			  <input type="text" class="form-control" id="topic_name" value="${requestScope.topic.topic_name}" name="topic_name" readonly="readonly">
+			  <input type="hidden" class="form-control" id="topic_id" value="${requestScope.topic.topic_id}" name="topic_id">
 			</div>
 			<div class="form-group">
 				<label for="front">Front:</label> 
-				<input type="text" class="form-control" id="front" placeholder="Front side of the card" name="front">
+				<textarea class="form-control" id="front" rows="2" name="front" placeholder="Front side of the card... (plain text)" required="required"></textarea>
 			</div>
 			<div class="form-group">
 				<label for="back">Back:</label> 
-				<textarea rows="5" class="form-control" id="back" placeholder="Backside of the card" name="back"></textarea>
+				<textarea rows="5" class="form-control" id="back" placeholder="Back side of the card..." name="back"></textarea>
 			</div>
 			<!-- <div class="javascriptCode"></div> -->
 			
 			<div class="form-group">
-				<label for="position">Position</label> 
-				<input type="number" class="form-control" id="position" placeholder="Position of the card" name="position">
+				<label for="position">Position:</label> 
+				<input type="number" class="form-control" id="position" placeholder="Position of the card" name="position" required="required">
+			</div>
+			
+			<div class="form-group">
+				<label for="radio">Color:</label>
+				<div>
+			      <ul id="selectable-1">
+			         <li class="ui-widget-content ui-selected default" data-val="#734d26">Default</li>
+			         <li class="ui-widget-content green" data-val="#558000">Green</li>
+			         <li class="ui-widget-content red" data-val="#cc3300">Red</li>
+			         <li class="ui-widget-content grey" data-val="#4d4d4d">Grey</li>
+			      </ul>
+				</div> 
+				 <input type="hidden" id="selectedColor" name="selectedColor" value="#734d26">
 			</div>
 			
 			<div class="addCardDiv">
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<input type="submit" class="btn btn-coffee navButton" value="Submit">
 			</div>
 			
 		</form>
@@ -68,6 +78,15 @@ var editor = new Simditor({
 	  textarea: $('#back')
 	  //optional options
 	});
+	
+$(function() {
+    $( "#selectable-1" ).selectable({
+    	selected: function(event, ui) { 
+            $(ui.selected).addClass("ui-selected").siblings().removeClass("ui-selected");
+            $('#selectedColor').val($(ui.selected).data('val'));
+        }
+      });
+ });
 
 </script>
 </html>

@@ -92,4 +92,24 @@ public class FlashcardDaoImpl implements FlashcardDao{
 		return flashcards;
 	}
 
+	@Override
+	public void saveOrder(List<String> orderArray) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		for (String order: orderArray) {
+			
+			Flashcard fc = session.get(Flashcard.class, Integer.parseInt(order.split(":")[1]));
+						
+			int pos = Integer.parseInt(order.split(":")[0]);
+
+			fc.setPosition(pos * 10);
+			
+			SecurityUtil.authenticateUser(fc.getTopic().getStream().getUsername());
+			session.update(fc);
+			
+		}
+		
+	}
+
 }
