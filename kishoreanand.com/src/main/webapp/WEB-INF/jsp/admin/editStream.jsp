@@ -8,11 +8,11 @@
 <script src="/js/jquery-te-1.4.0.min.js"></script> -->
 
 
-<link rel="stylesheet" type="text/css" href="/css/simditor.css" />
-<script type="text/javascript" src="/js/module.js"></script>
-<script type="text/javascript" src="/js/hotkeys.js"></script>
-<script type="text/javascript" src="/js/uploader.js"></script>
-<script type="text/javascript" src="/js/simditor.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/simditor.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/module.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/hotkeys.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/uploader.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/simditor.js"></script>
 
 
 </head>
@@ -20,7 +20,7 @@
 
 	<div class="container">
 		<h3 class="notCard">Edit Stream:</h3>
-		<form action="/updateStream" method="post">
+		<form action="${pageContext.request.contextPath}/updateStream" method="post">
 			<div class="form-group">
 				<label for="topicName">Stream name:</label> 
 				<input type="text" class="form-control" id="stream_name" placeholder="Enter stream name" value="${requestScope.stream.stream_name}" name="stream_name" required="required">
@@ -67,7 +67,7 @@
 	      </div>
 	      <div class="modal-footer">
 
-		     <form action="/deleteStream" method="post">
+		     <form action="${pageContext.request.contextPath}/deleteStream" method="post">
 				<div class="form-group">
 					<input type="hidden" class="form-control" id="stream_id" name="stream_id" value="${requestScope.stream.stream_id}">
 				</div>

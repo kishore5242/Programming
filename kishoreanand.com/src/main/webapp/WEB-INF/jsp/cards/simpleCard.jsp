@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <jsp:include page="/WEB-INF/jsp/header/header.jsp" />
-<script src="/js/jquery.ui.touch-punch.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.ui.touch-punch.js"></script>
 </head>
 <body>
 

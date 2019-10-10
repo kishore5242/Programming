@@ -317,7 +317,8 @@ a.navLink {
 
 img.img-circle.profile-pic {
     width: 100%;
-    max-width: 200px;
+    max-width: 150px;
+    margin: 10px;
 }
 
 input#front {
@@ -401,4 +402,15 @@ textarea {
 /* 	background: #cedc98;
 	border: 1px solid #DDDDDD;
 	color: #333333; */
+}
+
+.error-img {
+	width: 10%;
+}
+
+.alert.alert-danger.center {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    transform: translate(-50%, -50%);
 }

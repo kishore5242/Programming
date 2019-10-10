@@ -12,13 +12,14 @@
 
     <div class="row" style="margin-top:20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form action="/saveUser" method="post">
+            <form action="${pageContext.request.contextPath}/saveUser" method="post">
                 <fieldset>
                     <h3 class="notCard">Register</h3>
 
                     <c:if test="${param.userExists ne null}">
                         <div class="alert alert-danger">
-                            User with this email is already registered! 
+                            User with this email is already registered! <br>
+                            <a class="navLink" href="${pageContext.request.contextPath}/reset-page">forgot password?</a>
                         </div>
                     </c:if>
 

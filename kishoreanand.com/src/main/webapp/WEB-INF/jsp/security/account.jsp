@@ -12,7 +12,7 @@
 
     <div class="row" style="margin-top:20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form action="/saveUser" method="post">
+            <form action="${pageContext.request.contextPath}/saveUser" method="post">
                 <fieldset>
                     <!-- <h3 class="notCard">Account confirmation</h3> -->
 

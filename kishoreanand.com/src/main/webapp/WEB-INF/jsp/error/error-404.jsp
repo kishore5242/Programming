@@ -10,8 +10,8 @@
 			<div class="col-xs-12">
 				<div class="alert alert-danger center">
 					<img src="img/error-x.jpg" class="error-img" alt="Error" >
-					<strong>Error</strong> <br><br>
-					Oops! Something went wrong :(
+					<strong>404</strong> <br><br>
+					Page you are looking for does not exist!
 				</div>
 			</div>
 		</div>

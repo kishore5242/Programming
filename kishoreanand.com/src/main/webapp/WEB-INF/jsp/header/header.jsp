@@ -12,7 +12,7 @@
 
 <!-- common styles -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/main.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
 
@@ -26,9 +26,9 @@
 <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <!-- code mirror -->
-<script src="/js/codemirror.js"></script>
-<link rel="stylesheet" href="/css/codemirror.css">
-<script src="/mode/javascript/javascript.js"></script>
+<script src="${pageContext.request.contextPath}/js/codemirror.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/codemirror.css">
+<script src="${pageContext.request.contextPath}/mode/javascript/javascript.js"></script>
 
 
 <style type="text/css">

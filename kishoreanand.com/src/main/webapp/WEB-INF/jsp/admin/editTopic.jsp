@@ -8,11 +8,11 @@
 <script src="/js/jquery-te-1.4.0.min.js"></script> -->
 
 
-<link rel="stylesheet" type="text/css" href="/css/simditor.css" />
-<script type="text/javascript" src="/js/module.js"></script>
-<script type="text/javascript" src="/js/hotkeys.js"></script>
-<script type="text/javascript" src="/js/uploader.js"></script>
-<script type="text/javascript" src="/js/simditor.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/simditor.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/module.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/hotkeys.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/uploader.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/simditor.js"></script>
 
 
 </head>
@@ -20,7 +20,7 @@
 
 	<div class="container">
 		<h3 class="notCard">Edit Topic</h3>
-		<form action="/updateTopic" method="post">
+		<form action="${pageContext.request.contextPath}/updateTopic" method="post">
 			<div class="form-group">
 				<label for="topicName">Topic name:</label> 
 				<input type="text" class="form-control" id="topic_name" placeholder="Enter topic name" value="${requestScope.topic.topic_name}" name="topic_name" required="required">
@@ -73,7 +73,7 @@
 	      </div>
 	      <div class="modal-footer">
 
-		     <form action="/deleteTopic" method="post">
+		     <form action="${pageContext.request.contextPath}/deleteTopic" method="post">
 				<div class="form-group">
 					<input type="hidden" class="form-control" id="stream_id" name="stream_id" value="${requestScope.topic.stream.stream_id}">
 					<input type="hidden" class="form-control" id="topic_id" name="topic_id" value="${requestScope.topic.topic_id}">

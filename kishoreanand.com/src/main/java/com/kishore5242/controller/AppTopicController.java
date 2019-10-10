@@ -71,7 +71,7 @@ public class AppTopicController {
 		
 		topicService.createTopics(topicName, pos, stream_id);
 
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
 	
 	@RequestMapping(value = "/editTopic")
@@ -125,7 +125,7 @@ public class AppTopicController {
 		
 		topicService.updateTopic(topic, stream_id);
 
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
 	
 	@RequestMapping(value = "/deleteTopic", method = RequestMethod.POST)
@@ -139,7 +139,7 @@ public class AppTopicController {
 		
 		topicService.deleteTopic(topic_id);
 		
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
 	
 }

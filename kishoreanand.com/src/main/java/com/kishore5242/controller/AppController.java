@@ -84,32 +84,37 @@ public class AppController {
 		
 		if(user == null) {
 			redirectTo = "/reset-page?noUsername";
-			response.sendRedirect(redirectTo);
+			response.sendRedirect(request.getContextPath() + redirectTo);
 			return;
-		} else if(user != null && !user.isEnabled()){
-			redirectTo = "/reset-page?userNotEnabled";
-			response.sendRedirect(redirectTo);
-			return;
-		}
+		} 
+		
+//		else if(user != null && !user.isEnabled()){
+//			redirectTo = "/reset-page?userNotEnabled";
+//			response.sendRedirect(request.getContextPath() + redirectTo);
+//			return;
+//		}
 		
 		request.setAttribute("username", username);
 		
 		ConfirmationToken confirmationToken = new ConfirmationToken(user);
 
-		confirmationTokenService.saveToken(confirmationToken);
-
+		
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getUsername());
         mailMessage.setSubject("Reset Password Link!");
         mailMessage.setFrom("kishore5242");
-        mailMessage.setText("To reset your password, please click here : "
-        +"http://kishoreanand.com/new-password?token="+confirmationToken.getConfirmationToken());
+        mailMessage.setText("To reset your password, please click here : http://kishoreanand.com"
+        +request.getContextPath()+"/new-password?token="+confirmationToken.getConfirmationToken());
 
         emailService.sendEmail(mailMessage);
 		
+        // no error while sending email
+        // so update token
+        confirmationTokenService.saveToken(confirmationToken);
+        
 		redirectTo = "/account?resetEmailSent";
 		
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 		
 	}
 	
@@ -151,7 +156,7 @@ public class AppController {
 			redirectTo = "/new-password?invalidToken";
 		}
 
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 		
 	}
 	
@@ -168,33 +173,34 @@ public class AppController {
 		
 		if(userExists) {
 			redirectTo = "/register?userExists";
-			response.sendRedirect(redirectTo);
+			response.sendRedirect(request.getContextPath() + redirectTo);
 			return;
 		}
 		
-		Set<String> roles = new HashSet<>();
-		roles.add("USER");
 		
 		User user = new User(username, displayName, password, false);
-		
-		userService.saveUser(user, roles);
 
 		ConfirmationToken confirmationToken = new ConfirmationToken(user);
-
-		confirmationTokenService.saveToken(confirmationToken);
-
+		
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getUsername());
-        mailMessage.setSubject("Complete Registration!");
-        mailMessage.setFrom("kishore5242");
-        mailMessage.setText("To confirm your account, please click here : "
-        +"http://kishoreanand.com/confirm-account?token="+confirmationToken.getConfirmationToken());
+        mailMessage.setSubject("KishoreAnand.com - Complete your registration!");
+        mailMessage.setFrom("kishoreanand.com");
+        mailMessage.setText("To confirm your account, please click here : http://kishoreanand.com"
+        +request.getContextPath()+"/confirm-account?token="+confirmationToken.getConfirmationToken());
 
         emailService.sendEmail(mailMessage);
 		
+        // no error while sending email
+        // so persist user and token details
+		Set<String> roles = new HashSet<>();
+		roles.add("USER");
+        userService.saveUser(user, roles);
+        confirmationTokenService.saveToken(confirmationToken);
+        
 		redirectTo = "/account?registered";
 		
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 		
 	}
 	
@@ -225,7 +231,7 @@ public class AppController {
 		
 		redirectTo = "/account?confirmed";
 		
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 		
 	}
 	
@@ -239,6 +245,12 @@ public class AppController {
 	public String get403(HttpServletRequest request, HttpServletResponse response) {
 
 		return "security/403";
+	}
+	
+	@RequestMapping("/notfound")
+	public String getErrorPage1(HttpServletRequest request, HttpServletResponse response) {
+
+		throw new RuntimeException("Server error!");
 	}
 	
 }

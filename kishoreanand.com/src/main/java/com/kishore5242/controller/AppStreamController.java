@@ -49,7 +49,7 @@ public class AppStreamController {
 
 		refreshStreams(request, authentication);
 		
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
 	
 	@RequestMapping(value = "/editStream")
@@ -107,7 +107,7 @@ public class AppStreamController {
 		
 		refreshStreams(request, authentication);
 		
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
 	
 	@RequestMapping(value = "/deleteStream", method = RequestMethod.POST)
@@ -126,7 +126,7 @@ public class AppStreamController {
 		
 		refreshStreams(request, authentication);
 		
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
 
 	private void refreshStreams(HttpServletRequest request, Authentication authentication){

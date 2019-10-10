@@ -93,7 +93,7 @@ public class AppCardController {
 		
 		flashcardService.createFlashcard(flashcard, topic_id);
 
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 		
 	}
 	
@@ -115,7 +115,7 @@ public class AppCardController {
 		
 		flashcardService.removeFlashcard(id);
 
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
 	
 	@RequestMapping(value = "/editFlashcard")
@@ -174,7 +174,7 @@ public class AppCardController {
 		
 		flashcardService.updateFlashcard(flashcard, topic_id);
 
-		response.sendRedirect(redirectTo);
+		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
 	
 	

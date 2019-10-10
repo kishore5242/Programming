@@ -8,18 +8,18 @@
 <script src="/js/jquery-te-1.4.0.min.js"></script> -->
 
 
-<link rel="stylesheet" type="text/css" href="/css/simditor.css" />
-<script type="text/javascript" src="/js/module.js"></script>
-<script type="text/javascript" src="/js/hotkeys.js"></script>
-<script type="text/javascript" src="/js/uploader.js"></script>
-<script type="text/javascript" src="/js/simditor.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/simditor.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/module.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/hotkeys.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/uploader.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/simditor.js"></script>
 
 </head>
 <body>
 
 	<div class="container">
 		<h3 class="notCard">Add a Flashcard</h3>
-		<form action="/saveFlashcard" method="post">
+		<form action="${pageContext.request.contextPath}/saveFlashcard" method="post">
 			<div class="form-group">
 			  <label for="topic_name">Topic:</label>
 			  <input type="text" class="form-control" id="topic_name" value="${requestScope.topic.topic_name}" name="topic_name" readonly="readonly">

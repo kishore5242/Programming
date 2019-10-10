@@ -12,7 +12,7 @@
 
     <div class="row" style="margin-top:20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form action="/reset-email" method="post">
+            <form action="${pageContext.request.contextPath}/reset-email" method="post">
                 <fieldset>
                     <h3 class="notCard">Reset Password via Email</h3>
 
@@ -25,7 +25,7 @@
                         <div class="alert alert-danger">
                             Account is not activated yet. Please check your inbox for activation email. 
                             <br>
-                        	<b>Or</b><a href="${pageContext.request.contextPath}/register"> try registering once again</a>
+                        	<b>Or </b> try to<a href="${pageContext.request.contextPath}/register"> register</a> once again
                         </div>
                         
                     </c:if>
