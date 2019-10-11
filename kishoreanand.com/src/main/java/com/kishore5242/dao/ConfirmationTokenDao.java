@@ -1,6 +1,6 @@
 package com.kishore5242.dao;
 
-import com.kishore5242.tests.bean.ConfirmationToken;
+import com.kishore5242.bean.ConfirmationToken;
 
 public interface ConfirmationTokenDao {
 

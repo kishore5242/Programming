@@ -8,8 +8,8 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kishore5242.bean.Flashcard;
 import com.kishore5242.dao.FlashcardDao;
-import com.kishore5242.tests.bean.Flashcard;
 import com.kishore5242.util.SecurityUtil;
 
 @Service

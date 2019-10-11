@@ -2,7 +2,7 @@ package com.kishore5242.dao;
 
 import java.util.List;
 
-import com.kishore5242.tests.bean.Topic;
+import com.kishore5242.bean.Topic;
 
 public interface TopicDao {
 

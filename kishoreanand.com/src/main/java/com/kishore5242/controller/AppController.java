@@ -16,11 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kishore5242.bean.ConfirmationToken;
+import com.kishore5242.bean.User;
 import com.kishore5242.service.ConfirmationTokenService;
 import com.kishore5242.service.EmailService;
 import com.kishore5242.service.userService;
-import com.kishore5242.tests.bean.ConfirmationToken;
-import com.kishore5242.tests.bean.User;
 
 @Controller
 public class AppController {

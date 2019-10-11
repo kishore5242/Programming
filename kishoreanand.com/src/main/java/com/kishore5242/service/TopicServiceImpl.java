@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kishore5242.bean.Topic;
 import com.kishore5242.dao.StreamDao;
 import com.kishore5242.dao.TopicDao;
-import com.kishore5242.tests.bean.Topic;
 
 @Service
 @Transactional

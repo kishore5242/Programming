@@ -12,11 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kishore5242.bean.Flashcard;
+import com.kishore5242.bean.Stream;
+import com.kishore5242.bean.Topic;
 import com.kishore5242.service.StreamService;
 import com.kishore5242.service.TopicService;
-import com.kishore5242.tests.bean.Flashcard;
-import com.kishore5242.tests.bean.Stream;
-import com.kishore5242.tests.bean.Topic;
 
 @Controller
 public class AppTopicController {

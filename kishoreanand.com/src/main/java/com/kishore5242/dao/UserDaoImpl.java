@@ -9,8 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kishore5242.tests.bean.User;
-import com.kishore5242.tests.bean.UserRole;
+import com.kishore5242.bean.User;
+import com.kishore5242.bean.UserRole;
 
 
 @Repository

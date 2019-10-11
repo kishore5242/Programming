@@ -10,6 +10,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 
+<!-- favicon -->
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/img/global/favicon.ico" type="image/x-icon">
+
 <!-- common styles -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css"/>
@@ -112,6 +115,18 @@
 	<div class="topnav" id="myTopnav">
 		<ul class="nav navbar-nav">		
 		     <li class="reqInResp"><a href="${pageContext.request.contextPath}/">Home</a></li>
+		     
+		     <li class="dropdown">
+		     	<a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/blogs">
+		     		Blogs<span class="caret"></span>
+		     	</a>
+		     	<ul class="dropdown-menu">
+		    	<c:forEach items="${sessionScope.blogs}" var="blog" varStatus="loop">
+					<li class="navSubmenu"><a href="${pageContext.request.contextPath}/bloguser/posts?blog_id=${blog.blog_id}">${blog.blog_name}</a></li>
+				</c:forEach>
+		     	</ul>
+		     </li>
+		     
 		     <li class="dropdown">
 		     	<a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/cards">
 		     		Flashcards<span class="caret"></span>

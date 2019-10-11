@@ -8,8 +8,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kishore5242.tests.bean.Flashcard;
-import com.kishore5242.tests.bean.Topic;
+import com.kishore5242.bean.Flashcard;
+import com.kishore5242.bean.Topic;
 import com.kishore5242.util.SecurityUtil;
 
 @Repository

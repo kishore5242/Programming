@@ -7,8 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kishore5242.bean.User;
 import com.kishore5242.dao.UserDao;
-import com.kishore5242.tests.bean.User;
 
 @Service
 @Transactional
@@ -23,7 +23,7 @@ public class userServiceImpl implements userService {
 	
 	@Override
 	public boolean userExists(String username) {
-		com.kishore5242.tests.bean.User user = userDao.findByUserName(username);
+		com.kishore5242.bean.User user = userDao.findByUserName(username);
 		
 		if(user != null && user.getUsername().equalsIgnoreCase(username)){
 			return true;
@@ -33,7 +33,7 @@ public class userServiceImpl implements userService {
 	}
 	
 	@Override
-    public void saveUser(com.kishore5242.tests.bean.User user, Set<String> roles) {
+    public void saveUser(com.kishore5242.bean.User user, Set<String> roles) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         
         userDao.saveUser(user, roles);

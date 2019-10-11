@@ -9,7 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.kishore5242.tests.bean.Stream;
+import com.kishore5242.bean.Stream;
 import com.kishore5242.util.SecurityUtil;
 
 @Repository

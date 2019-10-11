@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kishore5242.bean.Flashcard;
+import com.kishore5242.bean.Topic;
 import com.kishore5242.service.FlashcardService;
 import com.kishore5242.service.TopicService;
-import com.kishore5242.tests.bean.Flashcard;
-import com.kishore5242.tests.bean.Topic;
 
 @Controller
 public class AppCardController {

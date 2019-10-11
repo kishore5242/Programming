@@ -2,7 +2,7 @@ package com.kishore5242.service;
 
 import java.util.List;
 
-import com.kishore5242.tests.bean.Flashcard;
+import com.kishore5242.bean.Flashcard;
 
 public interface FlashcardService {
 

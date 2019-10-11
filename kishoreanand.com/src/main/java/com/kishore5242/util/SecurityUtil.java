@@ -1,9 +1,13 @@
 package com.kishore5242.util;
 
+import java.util.Collection;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -52,6 +56,16 @@ public class SecurityUtil {
 			return true;
 		}
 
+	}
+	
+	public static void checkIfBlogAdmin(){
+		String loggedInUser = getLoggedInUserName();
+		Collection<? extends GrantedAuthority> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		boolean authorized = authorities.contains(new SimpleGrantedAuthority("ADMIN"));
+		if(!authorized) {
+			logger.warn(loggedInUser + " is not authorized to perform this action!");
+			throw new AccessDeniedException(loggedInUser + " is not authorized to perform this action!");
+		}
 	}
 	
 }

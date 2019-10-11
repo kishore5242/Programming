@@ -17,8 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kishore5242.bean.UserRole;
 import com.kishore5242.dao.UserDao;
-import com.kishore5242.tests.bean.UserRole;
 
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {
@@ -34,7 +34,7 @@ public class MyUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username) 
 		throws UsernameNotFoundException {
 	
-		com.kishore5242.tests.bean.User user = userDao.findByUserName(username);
+		com.kishore5242.bean.User user = userDao.findByUserName(username);
 		List<GrantedAuthority> authorities = 
                                       buildUserAuthority(user.getUserRole());
 
@@ -44,7 +44,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	// Converts com.mkyong.users.model.User user to
 	// org.springframework.security.core.userdetails.User
-	private User buildUserForAuthentication(com.kishore5242.tests.bean.User user, 
+	private User buildUserForAuthentication(com.kishore5242.bean.User user, 
 		List<GrantedAuthority> authorities) {
 		return new User(user.getUsername(), user.getPassword(), 
 			user.isEnabled(), true, true, true, authorities);

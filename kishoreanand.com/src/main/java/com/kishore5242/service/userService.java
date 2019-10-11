@@ -2,7 +2,7 @@ package com.kishore5242.service;
 
 import java.util.Set;
 
-import com.kishore5242.tests.bean.User;
+import com.kishore5242.bean.User;
 
 public interface userService {
 
