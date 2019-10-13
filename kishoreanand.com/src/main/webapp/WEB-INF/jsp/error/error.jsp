@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="alert alert-danger center">
-					<img src="img/error-x.jpg" class="error-img" alt="Error" >
+					<img src="img/global/x.svg" class="error-img" alt="Error" >
 					<strong>Error</strong> <br><br>
 					Oops! Something went wrong :(
 				</div>

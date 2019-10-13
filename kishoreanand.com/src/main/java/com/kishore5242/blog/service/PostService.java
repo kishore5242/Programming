@@ -1,6 +1,9 @@
 package com.kishore5242.blog.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kishore5242.blog.entity.Post;
 
@@ -14,11 +17,11 @@ public interface PostService {
 
 	Post getPost(Integer post_id);
 
-	void createPost(Post post, Integer blog_id);
+	public void deletePost(Integer blog_id, Integer post_id);
 
-	void updatePost(Post post, Integer blog_id);
+	void uploadPost(Integer blog_id, Post post, MultipartFile file) throws IOException;
 
-	public void deletePost(Integer post_id);
+	void updatePost(Post post, MultipartFile file) throws IOException;
 
 	
 }

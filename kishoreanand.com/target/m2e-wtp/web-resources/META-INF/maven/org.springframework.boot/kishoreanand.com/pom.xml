@@ -79,6 +79,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.46</version>
 		</dependency>
 
 		<!-- Add Log4j2 Dependency -->
@@ -102,6 +103,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+
+    <!-- for development purpose -->
+	<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-devtools</artifactId>
+    </dependency>
+
 
 	</dependencies>
 	<build>

@@ -20,15 +20,24 @@
 
 	<div class="container">
 		<h3 class="notCard">Edit Post</h3>
-		<form action="${pageContext.request.contextPath}/blogadmin/updatePost" method="post">
+		<form action="${pageContext.request.contextPath}/blogadmin/updatePost" method="post" enctype="multipart/form-data">
+		
 			<div class="form-group">
 				<label for="post_name">Post name:</label> 
 				<input type="text" class="form-control" id="post_name" placeholder="Enter post name" value="${requestScope.post.post_name}" name="post_name" required="required">
 				<input type="hidden" class="form-control" id="post_id" value="${requestScope.post.post_id}" name="post_id">
 			</div>
 			<div class="form-group">
-				<label for="author">Author:</label> 
-				<input type="text" class="form-control" id="author" placeholder="Author name" value="${requestScope.post.post_author}" name="author" required="required">
+				<label for="downloadfile">Download HTML:</label> <br>
+				<a href="${pageContext.request.contextPath}/uploaded/${requestScope.post.post_html_path}" download>Click here to download the existing HTML file</a>
+			</div>
+			<div class="form-group">
+				<label for="htmlfile">Upload HTML:</label><br>
+				<input class="form-control" type="file" id="htmlfile" name="htmlfile" accept=".html"/>
+			</div>	
+			<div class="form-group">
+				<label for="position">Position:</label><br>
+				<input class="form-control" type="number" id="position" name="position" required="required" value="${requestScope.post.position}"/>
 			</div>
 			<input type="hidden" class="form-control" id="blog_id" name="blog_id" value="${requestScope.post.blog.blog_id}">
 			
@@ -45,6 +54,12 @@
 					<div class="col-xs-4">
 						<button class="btn btn-coffee close-button" type="submit">Save</button>
 					</div>			
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-xs-12">
+					<jsp:include page="reference.jsp" /> 
 				</div>
 			</div>
 			

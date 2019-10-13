@@ -16,7 +16,7 @@ public interface PostDao {
 	
 	void updatePost(Post post, Integer blog_id);
 
-	void addPost(Post post, Integer blog_id);
+	Integer addPost(Post post, Integer blog_id);
 
 	void deletePost(Integer post_id);
 

@@ -48,7 +48,7 @@ public class BlogDaoImpl implements BlogDao {
 	public Blog getBlog(Integer blog_id) {
 		Session session = sessionFactory.getCurrentSession();
 		Blog blog = session.get(Blog.class, blog_id);
-		SecurityUtil.authenticateUser(blog.getUsername());
+		//SecurityUtil.authenticateUser(blog.getUsername());
 		return blog;
 	}
 

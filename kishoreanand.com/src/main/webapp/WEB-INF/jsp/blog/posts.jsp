@@ -10,12 +10,12 @@
 
 	<div class="container">
 	
-		<sec:authorize access="isAuthenticated()">
+		<sec:authorize access="hasAuthority('ADMIN')">
 			<div class="row">
 				<div class="col-xs-6 leftControls">
 				</div>
 				<div class="col-xs-6 rightControls">
-					<input type="button" class="btn btn-coffee navButton" onclick="window.location.href='${pageContext.request.contextPath}/blogadmin/addPost?blog_id=${requestScope.blog.blog_id}'" value="Post">
+					<input type="button" class="btn btn-coffee navButton" onclick="window.location.href='${pageContext.request.contextPath}/blogadmin/addPost/${requestScope.blog.blog_id}'" value="Post">
 				</div>
 			</div>
 		</sec:authorize>
@@ -29,11 +29,12 @@
 					<div class="topicRow">
 						<sec:authorize access="isAuthenticated()">
 	    					<div class="cardControl">
+	    						<span>pos:  ${post.position}  </span>
 						 		<span class="glyphicon glyphicon-edit editGlyph" data-postId="${post.post_id}"></span>
 					 		</div>
 						</sec:authorize>
 						<div>
-							<a href="${pageContext.request.contextPath}/blogadmin/editPost?post_id=${post.post_id}" class="listMenuItem">${post.post_name}</a>
+							<a href="${pageContext.request.contextPath}/blogadmin/editPost/${post.post_id}" class="listMenuItem">${post.post_name}</a>
 						</div>					
 					</div>
 				 </c:forEach>				
@@ -52,7 +53,7 @@
 $(document).on("click", ".editGlyph", function () {
 	var post_id = $(this).attr("data-postId");
 	$('#loading').show();
-	window.open(ctx + "/blogadmin/editPost?post_id="+post_id, "_self");
+	window.open(ctx + "/blogadmin/editPost/"+post_id, "_self");
 });
 
 </script>

@@ -41,7 +41,8 @@
 				<p>
 				This website is a hobby project I started in 2019. It is solely developed and maintained by me.
 				For any suggestion, feedback, bug reporting please feel free to email me at 
-				<a href = "mailto: kishore8764@gmail.com">kishore8764@gmail.com</a>
+				<a href = "mailto: kishore8764@gmail.com">kishore8764@gmail.com</a><br><br>
+				<a href="${pageContext.request.contextPath}/blogadmin">Edit content</a>
 				</p>
 			</div>	
 		</div>

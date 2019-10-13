@@ -9,7 +9,7 @@
 <body>
 
 	<div class="container">
-		<sec:authorize access="isAuthenticated()">
+		<sec:authorize access="hasAuthority('ADMIN')">
 			<div class="row">
 				<div class="col-xs-6 leftControls">
 					<%-- <input type="button" class="btn navButton" onclick="window.location.href='${pageContext.request.contextPath}/addStream'" value="Add a new stream"> --%>
@@ -32,7 +32,7 @@
 						 		</div>
 							</sec:authorize>
 							<div>
-								<a href="${pageContext.request.contextPath}/blogadmin/posts?blog_id=${blog.blog_id}" class="listMenuItem">${blog.blog_name}</a>
+								<a href="${pageContext.request.contextPath}/blogadmin/posts/${blog.blog_id}" class="listMenuItem">${blog.blog_name}</a>
 							</div>					
 						</div>					
 					 </c:forEach>
@@ -51,7 +51,7 @@
 $(document).on("click", ".editStreamGlyph", function () {
 	var blog_id = $(this).attr("data-blogId");
 	$('#loading').show();
-	window.open(ctx + "/blogadmin/editBlog?blog_id="+blog_id, "_self");
+	window.open(ctx + "/blogadmin/editBlog/"+blog_id, "_self");
 });
 
 </script>

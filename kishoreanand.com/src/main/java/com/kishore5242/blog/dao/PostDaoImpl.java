@@ -19,7 +19,7 @@ public class PostDaoImpl implements PostDao {
     private SessionFactory sessionFactory;
 	
 	@Override
-	public void addPost(Post post, Integer blog_id) {
+	public Integer addPost(Post post, Integer blog_id) {
 		Session session = sessionFactory.getCurrentSession();
 		Blog blog = session.get(Blog.class, blog_id);
 		
@@ -28,12 +28,14 @@ public class PostDaoImpl implements PostDao {
 		p.setPost_author(post.getPost_author());
 		p.setPost_html_path(post.getPost_html_path());
 		p.setUsername(post.getUsername());
+		p.setPosition(post.getPosition());
+		p.setPost_modified(post.getPost_modified());
 		p.setBlog(blog);
 		
 		//SecurityUtil.authenticateUser(post.getUsername());
 		SecurityUtil.checkIfBlogAdmin();
 		
-        session.save(p);
+        return (Integer) session.save(p);
 	}
 
 	@Override
@@ -73,7 +75,7 @@ public class PostDaoImpl implements PostDao {
 		Session session = sessionFactory.getCurrentSession();
 		Post post = session.get(Post.class, post_id);
 		//SecurityUtil.authenticateUser(post.getUsername());
-		SecurityUtil.checkIfBlogAdmin();
+		//SecurityUtil.checkIfBlogAdmin();
 		return post;
 	}
 
@@ -88,8 +90,12 @@ public class PostDaoImpl implements PostDao {
 		
 		p.setPost_name(post.getPost_name());
 		p.setPost_author(post.getPost_author());
-		p.setBlog(b);
-		p.setPost_html_path(post.getPost_html_path());
+		p.setPosition(post.getPosition());
+		p.setPost_modified(post.getPost_modified());
+		//p.setBlog(b);
+		if (post.getPost_html_path() != null && !"".equals(post.getPost_html_path())) {
+			p.setPost_html_path(post.getPost_html_path());
+		}
 		p.setUsername(post.getUsername());
 
 		session.update(p);

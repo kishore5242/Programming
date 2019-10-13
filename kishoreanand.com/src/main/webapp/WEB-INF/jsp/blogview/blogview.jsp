@@ -9,41 +9,71 @@
 <body>
 
 	<div class="container">
-		<sec:authorize access="hasRole('ADMIN')">
+		<sec:authorize access="hasAuthority('ADMIN')">
 			<div class="row">
 				<div class="col-xs-6 leftControls">
 					<%-- <input type="button" class="btn navButton" onclick="window.location.href='${pageContext.request.contextPath}/addStream'" value="Add a new stream"> --%>
 				</div>
 				<div class="col-xs-6 rightControls">
-					<input type="button" class="btn btn-coffee navButton" onclick="window.location.href='${pageContext.request.contextPath}/blogadmin/addPost'" value="Post">
+					<input type="button" class="btn btn-coffee navButton" onclick="window.location.href='${pageContext.request.contextPath}/blogadmin/addPost/${blog.blog_id}'" value="Post">
 				</div>
 			</div>
 		</sec:authorize>
 
 		<div class="row">
-			<div class="col-xs-3">
+			<div class="col-sm-3">
 				<div class="listMenu">
 					<div>
 						<h3 class="notCard">${blog.blog_name}</h3>
 					</div>
 					<c:forEach items="${requestScope.posts}" var="post" varStatus="loop">
 						<div class="topicRow">
+							<sec:authorize access="hasAuthority('ADMIN')">
+		    					<div class="cardControl">
+		    						<span>pos:  ${post.position}  </span>
+							 		<span class="glyphicon glyphicon-edit editGlyph" data-postId="${post.post_id}"></span>
+						 		</div>
+							</sec:authorize>
 							<div>
-								<a href="${pageContext.request.contextPath}/showPost?post_id=${post.post_id}" class="listMenuItem">${post.post_name}</a>
+								<c:choose>
+								  <c:when test="${post.post_id eq displaypost.post_id}">
+									<a href="${pageContext.request.contextPath}/bloguser/blog/${blog.blog_id}/${post.post_id}" class="listMenuItem selected">${post.post_name}</a> 
+								  </c:when>
+								  <c:otherwise>
+									<a href="${pageContext.request.contextPath}/bloguser/blog/${blog.blog_id}/${post.post_id}" class="listMenuItem">${post.post_name}</a> 
+								  </c:otherwise>
+								</c:choose>
 							</div>					
 						</div>					
 					 </c:forEach>
 				</div>
 			</div>
-			<div class="col-xs-9">
+			<div class="col-sm-9">
 				<div class="moreInfo">
-					<%-- 
-					<h4 class="notCard">${post.post_name}</h4>
-					<p class="info">
-						This post is created by user - ${post.post_author}
-					</p>	
-					 --%>			
+					<div class="thepost">
+						<c:catch var="fileError">
+							<c:import url="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}"/>
+						</c:catch>
+						<c:choose>
+						  <c:when test="${not empty fileError}">
+						  	<h3>No posts yet</h3>
+						  </c:when>
+						  <c:otherwise>
+						  	<c:import url="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}" />
+						  </c:otherwise>
+						</c:choose>
+					</div>
 				</div>
+				<div class="additionalInfo">
+					<div>
+				 		<span class="cardLeft"><b>Author: </b>${displaypost.post_author}</span>
+				 		<span class="cardRight"><b>Modified: </b>${displaypost.post_modified}</span>
+			 		</div>
+				</div>
+				<br>
+				<br>
+				<br>
+				<br>
 			</div>
 		</div>
 
@@ -54,9 +84,11 @@
 </body>
 
 <script type="text/javascript">
-
-
-
+$(document).on("click", ".editGlyph", function () {
+	var post_id = $(this).attr("data-postId");
+	$('#loading').show();
+	window.open(ctx + "/blogadmin/editPost/"+post_id, "_self");
+});
 </script>
 
 </html>

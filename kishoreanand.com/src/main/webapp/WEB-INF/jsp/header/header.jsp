@@ -122,8 +122,11 @@
 		     	</a>
 		     	<ul class="dropdown-menu">
 		    	<c:forEach items="${sessionScope.blogs}" var="blog" varStatus="loop">
-					<li class="navSubmenu"><a href="${pageContext.request.contextPath}/bloguser/posts?blog_id=${blog.blog_id}">${blog.blog_name}</a></li>
+					<li class="navSubmenu"><a href="${pageContext.request.contextPath}/bloguser/blog/${blog.blog_id}">${blog.blog_name}</a></li>
 				</c:forEach>
+				<sec:authorize access="hasAuthority('ADMIN')">
+						<li class="navSubmenu"><a href="${pageContext.request.contextPath}/blogadmin">Edit blogs</a></li>
+				</sec:authorize>	
 		     	</ul>
 		     </li>
 		     
@@ -261,6 +264,29 @@ function fixContainerMargin(){
 
 ////////////////////////////////////////////////////
 
+////////////// file upload form validation //////////////////////
+
+$(function(){
+    var fileInput = $('.upload-file');
+    var maxSize = fileInput.data('max-size');
+    $('.upload-form').submit(function(e){
+        if(fileInput.get(0).files.length){
+            var fileSize = fileInput.get(0).files[0].size; // in bytes
+            if(fileSize>maxSize){
+                alert('file size is more then ' + maxSize + ' bytes');
+                return false;
+            }else{
+                //alert('file size is - '+fileSize+' bytes');
+            }
+        }else{
+            alert('choose file, please');
+            return false;
+        }
+
+    });
+});
+
+///////////////////////////////////////////////////////////////
     
 </script>
 

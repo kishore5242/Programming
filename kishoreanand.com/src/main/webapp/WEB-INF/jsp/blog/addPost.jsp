@@ -20,22 +20,40 @@
 
 	<div class="container">
 		<h3 class="notCard">Post an article</h3>
-		<form action="${pageContext.request.contextPath}/blogadmin/savePost" method="post">
-			<div class="form-group">
-				<label for="topicName">Post name:</label> 
-				<input type="text" class="form-control" id="postName" placeholder="Enter post name" name="postName" required="required">
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<form action="${pageContext.request.contextPath}/blogadmin/savePost" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="post_name">Post name:</label> 
+						<input type="text" class="form-control" id="post_name" placeholder="Enter post name" name="post_name" required="required">
+					</div>
+					<div class="form-group">
+						<label for="htmlfile">Upload HTML:</label><br>
+						<input class="form-control" type="file" id="file" name="file" required="required" accept=".html"/>
+						
+					</div>
+					<div class="form-group">
+						<label for="position">Position:</label><br>
+						<input class="form-control" type="number" id="position" name="position" required="required" value="0"/>
+					</div>					
+
+					<input type="hidden" class="form-control" id="blog_id" name="blog_id" value="${requestScope.blog_id}">
+					
+					<div class="addCardDiv">
+						<input type="submit" class="btn btn-coffee navButton" value="Submit">
+					</div>
+					
+				</form>
 			</div>
-			<div class="form-group">
-				<label for="author">author:</label> 
-				<input type="text" class="form-control" id="author" placeholder="Author name" name="author" required="required">
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<jsp:include page="reference.jsp" /> 
 			</div>
-			<input type="hidden" class="form-control" id="blog_id" name="blog_id" value="${requestScope.blog_id}">
-			
-			<div class="addCardDiv">
-				<input type="submit" class="btn btn-coffee navButton" value="Submit">
-			</div>
-			
-		</form>
+		</div>
+		
 		<br>
 		<br>
 		<br>

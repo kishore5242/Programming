@@ -45,6 +45,7 @@ h2.notCard {
     z-index: 10;
     box-shadow: 0 4px rgba(1,1,1,0.1);
     transition: top 0.3s;
+    border-radius: 0px;
 }
 
 .navbar-inverse {
@@ -84,7 +85,6 @@ h2.notCard {
 	padding-top: 0px;
     padding-bottom: 0px;
 }
-
 
 
 /* navbar styling end */
@@ -138,6 +138,15 @@ img.tutorial-img {
     margin-top: 25px;
 }
 
+.additionalInfo {
+    font-style: italic;
+    background: #d7ffd4;
+    border-radius: 10px;
+    box-shadow: 2px 2px grey;
+    padding: 20px;
+    margin-top: 25px;
+}
+
 button.btn {
     min-width: 100px;
     max-width: 400px;
@@ -163,6 +172,10 @@ button.btn {
     font-family: Comic Sans MS, sans-serif;
     text-decoration: none !important;
     font-size: 18px;
+}
+
+.listMenuItem.selected {
+    font-weight: bold;
 }
 
 .leftControls {
@@ -302,6 +315,16 @@ a.navLink {
 	font-size: 13px;
 }
 
+.cardLeft {
+	float: left;
+	line-height: 0px;
+}
+
+.cardRight {
+	float: right;
+	line-height: 0px;
+}
+
 .card-back-text img {
     max-width: 100%;
     height: auto;
@@ -317,7 +340,8 @@ a.navLink {
 
 img.img-circle.profile-pic {
     width: 100%;
-    max-width: 200px;
+    max-width: 150px;
+    margin: 10px;
 }
 
 input#front {
@@ -402,3 +426,23 @@ textarea {
 	border: 1px solid #DDDDDD;
 	color: #333333; */
 }
+
+.error-img {
+	width: 10%;
+}
+
+.alert.alert-danger.center {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    transform: translate(-50%, -50%);
+}
+
+/* .fileuploadbrowse {
+	width: 70%;
+	display: inline-block !important;
+}
+
+.fileuploadbutton {
+	display: inline-block;
+} */

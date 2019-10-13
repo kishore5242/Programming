@@ -1,32 +1,37 @@
 package com.kishore5242.blog.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.kishore5242.bean.Flashcard;
-import com.kishore5242.bean.Stream;
-import com.kishore5242.bean.Topic;
 import com.kishore5242.bean.User;
 import com.kishore5242.blog.entity.Blog;
 import com.kishore5242.blog.entity.Post;
 import com.kishore5242.blog.service.BlogService;
 import com.kishore5242.blog.service.PostService;
 import com.kishore5242.service.userService;
+import com.kishore5242.util.DateUtil;
 import com.kishore5242.util.SecurityUtil;
 
 @Controller
 @RequestMapping("/blogadmin")
 public class BlogAdminController {
+	
+	private static final Logger logger = LogManager.getLogger(BlogAdminController.class);
 	
 	@Autowired
 	BlogService blogService;
@@ -37,7 +42,9 @@ public class BlogAdminController {
 	@Autowired
 	userService userService;
 	
-	List<Flashcard> allFlashcards = new ArrayList<>();
+	//Save the uploaded file to this folder
+	@Value("${files.upload.loc}")
+    private String UPLOADED_FOLDER;
 	
 	@RequestMapping("/addBlog")
 	public String addBlog(HttpServletRequest request, HttpServletResponse response) {
@@ -50,7 +57,7 @@ public class BlogAdminController {
 		
 		String loggedInUser = SecurityUtil.getLoggedInUserName(authentication);
 		
-		String redirectTo = "/";
+		String redirectTo = "/blogadmin";
 		
 		String blogName = request.getParameter("blogName");
 		
@@ -60,22 +67,16 @@ public class BlogAdminController {
 
 		blogService.createBlog(blog);
 
-		refreshBlogs(request, authentication);
+		refreshBlogs(request);
 		
 		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
 	
-	@RequestMapping(value = "/editBlog")
-	public String editBlog(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		String blog_id_str = request.getParameter("blog_id");
-		int blog_id = 555;
-		try {
-			blog_id = Integer.parseInt(blog_id_str);
-			
-		} catch (NumberFormatException e) {
-			return "error/error";
-		}
+	@RequestMapping(value = "/editBlog/{blog_id}")
+	public String editBlog(
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable("blog_id") int blog_id) throws IOException {
 						
 		Blog blog = blogService.getBlog(blog_id);
 
@@ -119,7 +120,7 @@ public class BlogAdminController {
 		
 		blogService.updateBlog(blog);
 		
-		refreshBlogs(request, authentication);
+		refreshBlogs(request);
 		
 		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
@@ -128,7 +129,7 @@ public class BlogAdminController {
 	public void deleteBlog(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 		
 		String blog_id_str = request.getParameter("blog_id");
-		String redirectTo = "/streams";
+		String redirectTo = "/blogadmin";
 		
 		Integer blog_id = 556;
 
@@ -138,12 +139,12 @@ public class BlogAdminController {
 		
 		blogService.deleteBlog(blog_id);
 		
-		refreshBlogs(request, authentication);
+		refreshBlogs(request);
 		
 		response.sendRedirect(request.getContextPath() + redirectTo);
 	}
 
-	private void refreshBlogs(HttpServletRequest request, Authentication authentication){
+	private void refreshBlogs(HttpServletRequest request){
 		
 		//String loggedInUser = SecurityUtil.getLoggedInUserName(authentication);
 		
@@ -153,15 +154,11 @@ public class BlogAdminController {
 	}	
 	
 	
-	@RequestMapping("/posts")
-	public String getPosts(HttpServletRequest request, HttpServletResponse response) {
-		
-		String blog_id_str = request.getParameter("blog_id");
-		int blog_id = 0;
-		
-		if(blog_id_str != null && !blog_id_str.isEmpty()){
-			blog_id = Integer.parseInt(blog_id_str);
-		}
+	@RequestMapping("/posts/{blog_id}")
+	public String getPosts(
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable("blog_id") int blog_id) {
 		
 		Blog blog =  blogService.getBlog(blog_id);
 		
@@ -173,89 +170,99 @@ public class BlogAdminController {
 		return "blog/posts";
 	}
 	
-	@RequestMapping("/addPost")
-	public String addPost(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/addPost/{blog_id}")
+	public String addPost(
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable("blog_id") int blog_id) {
 		
-		request.setAttribute("blog_id", request.getParameter("blog_id"));
+		request.setAttribute("blog_id", blog_id); 
+		
+		refreshBlogs(request);
 		
 		return "blog/addPost";
 	}
 	
 	@RequestMapping(value = "/savePost", method = RequestMethod.POST)
-	public void savePost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void savePost(HttpServletRequest request, HttpServletResponse response, @RequestParam("file") MultipartFile file) throws IOException {
 
-		String postName = request.getParameter("postName");
-		String author = request.getParameter("author");
+		String postName = request.getParameter("post_name");
 		String blog_id_str = request.getParameter("blog_id");
-
-		String redirectTo = "/blogadmin/posts?blog_id="+blog_id_str;
+		String position_str = request.getParameter("position");
 		
 		int blog_id = Integer.parseInt(blog_id_str);
+		int position = Integer.parseInt(position_str);
 		
 		User user = userService.findUserByUsername(SecurityUtil.getLoggedInUserName());
-
+		
 		Post post = new Post();
 		post.setPost_name(postName);
 		post.setPost_author(user.getDisplayName());
-		post.setPost_html_path("some path");
 		post.setUsername(SecurityUtil.getLoggedInUserName());
+		post.setPosition(position);
+		post.setPost_modified(DateUtil.getCurrentDate("yyyy/MM/dd HH:mm"));
 		
-		postService.createPost(post, blog_id);
-
-		response.sendRedirect(request.getContextPath() + redirectTo);
+		postService.uploadPost(blog_id, post, file);
+		
+		refreshBlogs(request);
+		
+		response.sendRedirect(request.getContextPath() + "/blogadmin/posts/"+blog_id_str);
+		
 	}
 	
-	@RequestMapping(value = "/editPost")
-	public String editPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		String post_id_str = request.getParameter("post_id");
-		int post_id = 555;
-		try {
-			post_id = Integer.parseInt(post_id_str);
+	@RequestMapping(value = "/editPost/{post_id}")
+	public String editPost(
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			@PathVariable("post_id") int post_id) throws IOException {
 			
-		} catch (NumberFormatException e) {
-			return "error/error";
-		}
-						
 		Post post = postService.getPost(post_id);
 
 		request.setAttribute("post", post);
+		
+		refreshBlogs(request);
 		
 		return "blog/editPost";
 	}
 	
 	@RequestMapping(value = "/updatePost", method = RequestMethod.POST)
-	public void updatePost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		String blog_id_str = request.getParameter("blog_id");
-		
-		String redirectTo = "/blogadmin/posts?blog_id="+blog_id_str;
+	public void updatePost(HttpServletRequest request, HttpServletResponse response, @RequestParam("htmlfile") MultipartFile htmlfile) throws IOException {
 		
 		String post_id_str = request.getParameter("post_id");
 		String post_name = request.getParameter("post_name");
-		String post_author = request.getParameter("author");
+		String blog_id_str = request.getParameter("blog_id");
+		String position_str = request.getParameter("position");
 
-		int blog_id = 0;
+//		int blog_id = 0;
 		int post_id =0;
+		int position =500;
 		
 
-		if(null != blog_id_str && !blog_id_str.isEmpty()) {
-			blog_id = Integer.parseInt(blog_id_str);
-		}
+//		if(null != blog_id_str && !blog_id_str.isEmpty()) {
+//			blog_id = Integer.parseInt(blog_id_str);
+//		}
 		if(null != post_id_str && !post_id_str.isEmpty()) {
 			post_id = Integer.parseInt(post_id_str);
 		}
+		if(null != position_str && !position_str.isEmpty()) {
+			position = Integer.parseInt(position_str);
+		}
+		
+		User user = userService.findUserByUsername(SecurityUtil.getLoggedInUserName());
 		
 		Post post = new Post();
 		post.setPost_id(post_id);
 		post.setPost_name(post_name);
-		post.setPost_author(post_author);
+		post.setPost_author(user.getDisplayName());
 		post.setUsername(SecurityUtil.getLoggedInUserName());
-		post.setPost_html_path("updated");
+		post.setPosition(position);
+		post.setPost_modified(DateUtil.getCurrentDate("yyyy/MM/dd HH:mm"));
+		
+		postService.updatePost(post, htmlfile);
+		
+		refreshBlogs(request);
 
-		postService.updatePost(post, blog_id);
-
-		response.sendRedirect(request.getContextPath() + redirectTo);
+		response.sendRedirect(request.getContextPath() + "/blogadmin/posts/"+blog_id_str);
 	}
 	
 	@RequestMapping(value = "/deletePost", method = RequestMethod.POST)
@@ -263,13 +270,14 @@ public class BlogAdminController {
 		
 		String post_id_str = request.getParameter("post_id");
 		Integer post_id = Integer.parseInt(post_id_str);
-		
 		String blog_id_str = request.getParameter("blog_id");
-		String redirectTo = "/blogadmin/posts?blog_id="+blog_id_str;
+		Integer blog_id = Integer.parseInt(blog_id_str);
 		
-		postService.deletePost(post_id);
+		postService.deletePost(blog_id, post_id);
 		
-		response.sendRedirect(request.getContextPath() + redirectTo);
+		refreshBlogs(request);
+		
+		response.sendRedirect(request.getContextPath() + "/blogadmin/posts/"+blog_id_str);
 	}
 	
 }
