@@ -1,5 +1,6 @@
 package com.kishore5242.bean;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,7 +19,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="stream")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Stream {
+public class Stream implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "stream_Sequence")
     @SequenceGenerator(name = "stream_Sequence", sequenceName = "STREAM_SEQ")

@@ -54,19 +54,14 @@
 						<c:catch var="fileError">
 							<c:import url="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}"/>
 						</c:catch>
-						<c:choose>
-						  <c:when test="${not empty fileError}">
+						<c:if test="${not empty fileError}">
 						  	<h3>No posts yet</h3>
-						  </c:when>
-						  <c:otherwise>
-						  	<c:import url="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}" />
-						  </c:otherwise>
-						</c:choose>
+						 </c:if>
 					</div>
 				</div>
 				<div class="additionalInfo">
 					<div>
-				 		<span class="cardLeft"><b>Author: </b>${displaypost.post_author}</span>
+				 		<span class="cardLeft"><b>Author: </b>${displaypost.post_author}</span> &nbsp;&nbsp;&nbsp;&nbsp;
 				 		<span class="cardRight"><b>Modified: </b>${displaypost.post_modified}</span>
 			 		</div>
 				</div>

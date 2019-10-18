@@ -1,5 +1,6 @@
 package com.kishore5242.blog.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,8 +15,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "blog")
-public class Blog {
-	
+public class Blog implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "blog_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -12,7 +12,7 @@
         </Console>
         
 		<!-- Rolling File Appender -->
-		<RollingFile name="FileAppender" fileName="/usr/local/tomcat8/logs/flashcards/flashcards.log" filePattern="logs/log4j2-demo-%d{yyyy-MM-dd}-%i.log">
+		<RollingFile name="FileAppender" fileName="/usr/local/tomcat8/logs/site/debug.log" filePattern="logs/log4j2-demo-%d{yyyy-MM-dd}-%i.log">
 		 <!-- <RollingFile name="FileAppender" fileName="D:/Work/VPS/kishoreanand.com/dev.log" filePattern="logs/log4j2-demo-%d{yyyy-MM-dd}-%i.log"> -->
 		    <PatternLayout>
 		        <Pattern>${LOG_PATTERN}</Pattern>
