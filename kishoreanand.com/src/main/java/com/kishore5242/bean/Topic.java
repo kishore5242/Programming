@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -32,12 +33,13 @@ public class Topic implements Comparable<Topic>{
 	@Column(name = "pos")
 	private Integer pos;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="stream_id", nullable = false)
 	private Stream stream;
 	
 	@OneToMany(cascade = CascadeType.REMOVE,
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             mappedBy="topic")
 	private Set<Flashcard> flashcards;
 	

@@ -136,6 +136,7 @@ img.tutorial-img {
     box-shadow: 2px 2px grey;
     padding: 20px;
     margin-top: 25px;
+    width: fit-content;
 }
 
 .additionalInfo {
@@ -145,6 +146,7 @@ img.tutorial-img {
     box-shadow: 2px 2px grey;
     padding: 20px;
     margin-top: 25px;
+    width: max-content;
 }
 
 button.btn {
@@ -446,3 +448,11 @@ textarea {
 .fileuploadbutton {
 	display: inline-block;
 } */
+
+
+.pageLinks {
+	list-style: none;
+	font-size: 16px;
+	line-height: 35px;
+	/* text-decoration: underline; */
+}

@@ -27,7 +27,7 @@ public class Flashcard implements Comparable<Flashcard>{
 	@Column(name="front")
 	private String front;
 	
-	@Column(name="back")
+	@Column(name="back", length = 10000)
 	private String back;
 	
 	@Column(name="position")

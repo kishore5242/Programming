@@ -40,9 +40,9 @@
 				<h4 class="notCard">kishoreanand.com</h4>
 				<p>
 				This website is a hobby project I started in 2019. It is solely developed and maintained by me.
-				For any suggestion, feedback, bug reporting please feel free to email me at 
+				For any suggestion, feedback or bug reporting please feel free to email me at 
 				<a href = "mailto: kishore8764@gmail.com">kishore8764@gmail.com</a><br><br>
-				<a href="${pageContext.request.contextPath}/blogadmin">Edit content</a>
+				<a href="${pageContext.request.contextPath}/blogadmin">Edit site contents</a>
 				</p>
 			</div>	
 		</div>
@@ -50,7 +50,7 @@
 		<br>
 		<div class="row">
 			<div class="col-xs-4">
-				<img src="img/profile-pic.jpg" class="img-circle profile-pic" alt="Kishore Anand" >
+				<img src="${pageContext.request.contextPath}/img/profile-pic.jpg" class="img-circle profile-pic" alt="Kishore Anand" >
 			</div>
 			<div class="col-xs-8">
 				<h4 class="notCard">Kishore Anand</h4>

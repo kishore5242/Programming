@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -31,8 +32,9 @@ public class Stream implements Serializable {
 	@Column(name = "stream_name")
 	private String stream_name;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.REMOVE,
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             mappedBy="stream")
 	private Set<Topic> topics;
 	

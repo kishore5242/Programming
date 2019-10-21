@@ -5,8 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
-@ComponentScan("com.kishore5242")
+@ComponentScan(value = {"com.kishore5242", "com.kishoreanand"})
+@PropertySources({@PropertySource("classpath:secure.properties")})
 @SpringBootApplication
 public class SpringBootWebApplication extends SpringBootServletInitializer {
 

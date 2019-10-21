@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kishore5242.bean.Flashcard;
 import com.kishore5242.bean.Stream;
@@ -82,6 +84,32 @@ public class AppStreamController {
 		request.setAttribute("streams", streams);
 		
 		return "streams/streams";
+	}
+	
+	@GetMapping("/streamList")
+	public @ResponseBody List<Stream> getStreamList(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+		
+		List<Stream> streams = new ArrayList<>();
+		
+//		Object sessionObj = request.getSession().getAttribute("streams");
+//		if(sessionObj == null) {
+//			String loggedInUser = SecurityUtil.getLoggedInUserName(authentication);
+//			streams = streamService.getAllStreamsByUser(loggedInUser);
+//			
+//			request.getSession().setAttribute("streams", streams);
+//			request.setAttribute("streams", streams);
+//		} else if (sessionObj instanceof List<?>){
+//			streams = (List<Stream>) sessionObj;
+//		}
+
+		String loggedInUser = SecurityUtil.getLoggedInUserName(authentication);
+		streams = streamService.getAllStreamsByUser(loggedInUser);
+		
+		request.getSession().setAttribute("streams", streams);
+		request.setAttribute("streams", streams);
+		
+
+		return streams;
 	}
 	
 	

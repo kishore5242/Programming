@@ -1,5 +1,6 @@
 package com.kishore5242.blog.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,9 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kishore5242.blog.entity.Blog;
 import com.kishore5242.blog.entity.Post;
@@ -29,6 +33,28 @@ public class BlogController {
 	@Autowired
 	PostService postService;
 
+	@GetMapping(path = {"/blogs", "/", ""})
+	public @ResponseBody List<Blog> getStreams(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+		
+		List<Blog> blogs = new ArrayList<>();
+		
+//		Object sessionObj = request.getSession().getAttribute("blogs");
+//		if(sessionObj == null) {
+//			blogs = blogService.getAllBlogs();
+//			request.getSession().setAttribute("blogs", blogs);
+//			request.setAttribute("blogs", blogs);
+//			
+//		} else if (sessionObj instanceof List<?>){
+//			blogs = (List<Blog>) sessionObj;
+//		}
+		
+		blogs = blogService.getAllBlogs();
+		request.getSession().setAttribute("blogs", blogs);
+		request.setAttribute("blogs", blogs);
+
+		return blogs;
+	}
+	
 	@RequestMapping("/blog/{blog_id}")
 	public String getPosts(
 			HttpServletRequest request, 

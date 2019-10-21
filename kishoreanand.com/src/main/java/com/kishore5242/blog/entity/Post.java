@@ -1,5 +1,8 @@
 package com.kishore5242.blog.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,8 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "post")
@@ -43,6 +49,10 @@ public class Post implements Comparable<Post>{
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "blog_id", nullable = false)
 	private Blog blog;
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "post")
+	private List<Comment> comments;
 	
 	public Integer getPost_id() {
 		return post_id;
@@ -114,6 +124,14 @@ public class Post implements Comparable<Post>{
 
 	public void setPost_modified(String post_modified) {
 		this.post_modified = post_modified;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	@Override

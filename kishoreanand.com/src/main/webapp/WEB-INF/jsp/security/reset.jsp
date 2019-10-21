@@ -18,7 +18,8 @@
 
                     <c:if test="${param.noUsername ne null}">
                         <div class="alert alert-danger">
-                            Account(Email) does not exist!
+                            Account(Email) does not exist! <br>
+                            <a class="navLink" href="${pageContext.request.contextPath}/register">Please click here to register with us</a>
                         </div>
                     </c:if>
                     <c:if test="${param.userNotEnabled ne null}">

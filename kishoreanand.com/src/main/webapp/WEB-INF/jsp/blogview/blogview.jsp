@@ -66,6 +66,7 @@
 			 		</div>
 				</div>
 				<br>
+				<jsp:include page="/WEB-INF/jsp/comment/client.jsp" />
 				<br>
 				<br>
 				<br>

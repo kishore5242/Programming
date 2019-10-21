@@ -35,8 +35,12 @@ public class MyUserDetailsService implements UserDetailsService {
 		throws UsernameNotFoundException {
 	
 		com.kishore5242.bean.User user = userDao.findByUserName(username);
-		List<GrantedAuthority> authorities = 
-                                      buildUserAuthority(user.getUserRole());
+		
+		if(user == null) {
+			throw new UsernameNotFoundException("User not registered with us!");
+		}
+		
+		List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
 
 		return buildUserForAuthentication(user, authorities);
 		

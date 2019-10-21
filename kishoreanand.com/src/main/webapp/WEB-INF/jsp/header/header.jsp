@@ -115,31 +115,34 @@
 	<div class="topnav" id="myTopnav">
 		<ul class="nav navbar-nav">		
 		     <li class="reqInResp"><a href="${pageContext.request.contextPath}/">Home</a></li>
-		     
-		     <li class="dropdown">
-		     	<a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/blogs">
-		     		Blogs<span class="caret"></span>
-		     	</a>
-		     	<ul class="dropdown-menu">
-		    	<c:forEach items="${sessionScope.blogs}" var="blog" varStatus="loop">
-					<li class="navSubmenu"><a href="${pageContext.request.contextPath}/bloguser/blog/${blog.blog_id}">${blog.blog_name}</a></li>
-				</c:forEach>
-				<sec:authorize access="hasAuthority('ADMIN')">
-						<li class="navSubmenu"><a href="${pageContext.request.contextPath}/blogadmin">Edit blogs</a></li>
-				</sec:authorize>	
-		     	</ul>
-		     </li>
-		     
 		     <li class="dropdown">
 		     	<a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/cards">
-		     		Flashcards<span class="caret"></span>
+		     		<sec:authorize access="isAuthenticated()">
+		     			My Flashcards<span class="caret"></span>
+		     		</sec:authorize>
+		     		<sec:authorize access="!isAuthenticated()">
+		     			Flashcards<span class="caret"></span>
+		     		</sec:authorize>
 		     	</a>
-		     	<ul class="dropdown-menu">
+		     	<ul class="dropdown-menu" id="streamList">
 		    	<c:forEach items="${sessionScope.streams}" var="stream" varStatus="loop">
 					<li class="navSubmenu"><a href="${pageContext.request.contextPath}/topics?stream_id=${stream.stream_id}">${stream.stream_name}</a></li>
 				</c:forEach>
 		     	</ul>
 		     </li>
+		     <li class="dropdown">
+		     	<a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/blogs">
+		     		Blogs<span class="caret"></span>
+		     	</a>
+		     	<ul class="dropdown-menu" id="blogsList">
+		    	<c:forEach items="${sessionScope.blogs}" var="blog" varStatus="loop">
+					<li class="navSubmenu"><a href="${pageContext.request.contextPath}/bloguser/blog/${blog.blog_id}">${blog.blog_name}</a></li>
+				</c:forEach>
+		     	</ul>
+		     </li>
+		     <sec:authorize access="isAuthenticated()">
+		     	<li><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
+		     </sec:authorize>
 		     <li><a href="${pageContext.request.contextPath}/about">About</a></li>
 		     <sec:authorize access="!isAuthenticated()">
 		     	<li><a href="${pageContext.request.contextPath}/login">Login</a></li>
@@ -178,6 +181,12 @@ $(document).ready(function () {
         }).parent().addClass('active');
         
         fixContainerMargin();
+
+		loadBlogsList();
+
+		loadStreams();
+		
+        
     });
 
 $(window).resize(function() {
@@ -217,6 +226,38 @@ function toggleResponsive() {
 
 function fixContainerMargin(){
 	$('.container').css('margin-top', $('#topFixedNav').height())
+}
+
+function loadBlogsList() {
+	$.get( "${pageContext.request.contextPath}/bloguser/blogs", function(data) {
+		if(Array.isArray(data)){
+			//alert(data.length);
+			var blogListHtml = '';
+			for(i=0; i<data.length; i++){
+				blogListHtml += '<li class="navSubmenu"><a href="${pageContext.request.contextPath}/bloguser/blog/'+data[i].blog_id+'">'+data[i].blog_name+'</a></li>'
+			}
+			$('#blogsList').html(blogListHtml);
+			
+		} else {
+			console.log('Blogs could not be loaded');
+		}
+	});
+}
+
+function loadStreams() {
+	$.get( "${pageContext.request.contextPath}/streamList", function(data) {
+		if(Array.isArray(data)){
+			//alert(data.length);
+			var streamListHtml = '';
+			for(i=0; i<data.length; i++){
+				streamListHtml += '<li class="navSubmenu"><a href="${pageContext.request.contextPath}/topics?stream_id='+data[i].stream_id+'">'+data[i].stream_name+'</a></li>'
+			}
+			$('#streamList').html(streamListHtml);
+			
+		} else {
+			console.log('Streams could not be loaded');
+		}
+	});
 }
 
 ///////////////////////////////////////////////////////////////////

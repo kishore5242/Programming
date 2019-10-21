@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "blog")
 public class Blog implements Serializable {
@@ -30,11 +32,12 @@ public class Blog implements Serializable {
 	@Column(name = "username")
 	private String username;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.REMOVE,
 			fetch = FetchType.LAZY,
 			mappedBy = "blog")
 	private List<Post> posts;
-
+	
 	
 	public Integer getBlog_id() {
 		return blog_id;

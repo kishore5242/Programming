@@ -44,7 +44,8 @@
 				<label for="back">Back:</label> 
 				<textarea rows="5" class="form-control" id="back" placeholder="Back side of the card..." name="back">
 					${requestScope.flashcard.back}
-				</textarea>
+				</textarea><br>
+				<a href="${pageContext.request.contextPath}/files?blog_id=${requestScope.blog_id}" target="_blank">Upload an image and get link&nbsp;&nbsp;<img alt="external" src="${pageContext.request.contextPath}/img/global/icons/link-external.svg"></a>
 			</div>
 			<div class="form-group">
 				<label for="position">Position</label> 

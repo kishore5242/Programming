@@ -61,6 +61,14 @@ public class AppController {
 		return "security/login";
 	}
 	
+	@RequestMapping("/loggingout")
+	public void getLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		request.getSession().invalidate();
+		
+		response.sendRedirect(request.getContextPath());
+	}
+	
 	@RequestMapping("/register")
 	public String getRegister(HttpServletRequest request, HttpServletResponse response) {
 
@@ -103,8 +111,8 @@ public class AppController {
         mailMessage.setTo(user.getUsername());
         mailMessage.setSubject("Reset Password Link!");
         mailMessage.setFrom("kishore5242");
-        mailMessage.setText("To reset your password, please click here : http://kishoreanand.com"
-        +request.getContextPath()+"/new-password?token="+confirmationToken.getConfirmationToken());
+        mailMessage.setText("To reset your password, please click here : "
+        +request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/new-password?token="+confirmationToken.getConfirmationToken());
 
         emailService.sendEmail(mailMessage);
 		
@@ -184,10 +192,10 @@ public class AppController {
 		
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getUsername());
-        mailMessage.setSubject("KishoreAnand.com - Complete your registration!");
+        mailMessage.setSubject("Complete your registration!");
         mailMessage.setFrom("kishoreanand.com");
-        mailMessage.setText("To confirm your account, please click here : http://kishoreanand.com"
-        +request.getContextPath()+"/confirm-account?token="+confirmationToken.getConfirmationToken());
+        mailMessage.setText("To confirm your account, please click here : "
+        +request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/confirm-account?token="+confirmationToken.getConfirmationToken());
 
         emailService.sendEmail(mailMessage);
 		
