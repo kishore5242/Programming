@@ -38,6 +38,11 @@ h2.notCard {
 
 /* navbar styling start */
 
+.headerlogo {
+	max-width: 20px !important;
+}
+
+
 #topFixedNav {
 	position: fixed;
     width: 100%;

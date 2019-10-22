@@ -25,7 +25,7 @@
                     </c:if>
                     <c:if test="${param.confirmed ne null}">
                         <div class="alert alert-success">
-                            Account confirmed! Please login
+                            Thank you for registering! Please login
                         </div>
                         <br>
 		                <div>

@@ -29,7 +29,6 @@
 
 	<h4>Comments:</h4>
     <div id="result">
-        
     </div>
     
     <div id='editor' class="commenteditor">
@@ -132,7 +131,7 @@ function formatHtmlValue(commentData){
 }
 
 function showCommentEditor(replyToId, el){
-	//$("#replyeditor").show();
+
 	var replyEditorHtml = $("#replyeditorcontainer").html();
 	replyEditorHtml = replaceAll(replyEditorHtml, "replyToId", replyToId)
 	
@@ -140,11 +139,10 @@ function showCommentEditor(replyToId, el){
 	$([document.documentElement, document.body]).animate({
         scrollTop: $(el).offset().top
     }, 500);
-	$('.replytextarea').focus();
-	
+	$(el).find('.replytextarea').focus();	
 	
 	$(el).parent().find('.commenteditorform').submit(commentSubmitEvent);
-	
+
 }
 
 function closeParent(el){

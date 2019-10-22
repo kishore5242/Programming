@@ -15,11 +15,13 @@
             <form action="${pageContext.request.contextPath}/login" method="post">
                 <fieldset>
                     <h3 class="notCard">Login</h3>
-                    <c:if test="${param.error ne null}">
-                        <div class="alert alert-danger">
-                            <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" /> 
-                        </div>
-                    </c:if>
+                    
+                    <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+				      <div class="alert alert-danger">
+				        <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>.
+				      </div>
+				    </c:if>
+                    
                     <c:if test="${param.logout ne null}">
                         <div class="alert alert-info">
                             You have been logged out.

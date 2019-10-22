@@ -168,8 +168,40 @@ public class AppController {
 		
 	}
 	
+	
 	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
 	public void saveUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String username = request.getParameter("username");
+		String displayName = request.getParameter("displayName");
+		String password = request.getParameter("password");
+		
+		String redirectTo = "/register";
+		
+		boolean userExists = userService.userExists(username);
+		
+		if(userExists) {
+			redirectTo = "/register?userExists";
+			response.sendRedirect(request.getContextPath() + redirectTo);
+			return;
+		}
+		
+		User user = new User(username, displayName, password, true);
+
+        // persist user and token details
+		Set<String> roles = new HashSet<>();
+		roles.add("USER");
+        userService.saveUser(user, roles);
+        
+		redirectTo = "/account?confirmed";
+		
+		response.sendRedirect(request.getContextPath() + redirectTo);
+		
+	}
+	
+
+	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
+	public void registerUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String username = request.getParameter("username");
 		String displayName = request.getParameter("displayName");
@@ -211,6 +243,7 @@ public class AppController {
 		response.sendRedirect(request.getContextPath() + redirectTo);
 		
 	}
+
 	
 	@RequestMapping(value = "/confirm-account")
 	public void confirmUserAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {

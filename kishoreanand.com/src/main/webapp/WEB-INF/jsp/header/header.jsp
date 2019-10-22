@@ -114,7 +114,7 @@
 <div class="navbar navbar-inverse" id="topFixedNav">	
 	<div class="topnav" id="myTopnav">
 		<ul class="nav navbar-nav">		
-		     <li class="reqInResp"><a href="${pageContext.request.contextPath}/">Home</a></li>
+		     <li class="reqInResp"><a href="${pageContext.request.contextPath}/"><img alt="Home" class="headerlogo" src="${pageContext.request.contextPath}/img/global/favicon.ico"></a></li>
 		     <li class="dropdown">
 		     	<a class="dropdown-toggle" data-toggle="dropdown" href="${pageContext.request.contextPath}/cards">
 		     		<sec:authorize access="isAuthenticated()">

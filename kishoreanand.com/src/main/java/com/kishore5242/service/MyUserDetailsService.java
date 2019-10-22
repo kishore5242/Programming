@@ -33,7 +33,7 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(final String username) 
 		throws UsernameNotFoundException {
-	
+		
 		com.kishore5242.bean.User user = userDao.findByUserName(username);
 		
 		if(user == null) {
