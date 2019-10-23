@@ -12,4 +12,6 @@ public interface CommentDao {
 
 	Comment findById(Integer id);
 
+	List<Comment> findAllByPostId(Integer post_id);
+
 }

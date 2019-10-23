@@ -33,7 +33,7 @@
 			</div>
 			<div class="form-group">
 				<label for="htmlfile">Upload HTML:</label><br>
-				<input class="form-control" type="file" id="htmlfile" name="htmlfile" accept=".html"/>
+				<input class="form-control" type="file" id="htmlfile" name="htmlfile" accept=".md, .html, .htm"/>
 			</div>	
 			<div class="form-group">
 				<label for="position">Position:</label><br>

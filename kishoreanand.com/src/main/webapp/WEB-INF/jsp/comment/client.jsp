@@ -101,7 +101,7 @@ $(document).ready(function(){
 
 
 function refreshComments(){
-	$.get("${pageContext.request.contextPath}/comments", function(data){
+	$.get("${pageContext.request.contextPath}/comments?post_id=${displaypost.post_id}", function(data){
 		// Display the returned data in browser
 		
 		var commHtml = '';

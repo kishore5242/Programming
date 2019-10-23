@@ -32,4 +32,9 @@ public class CommentServiceImpl implements CommentService {
 		return commentDao.findById(id);
 	}
 
+	@Override
+	public List<Comment> findAllByPostId(Integer post_id) {
+		return commentDao.findAllByPostId(post_id);
+	}
+
 }

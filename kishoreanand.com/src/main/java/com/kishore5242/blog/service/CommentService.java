@@ -9,7 +9,9 @@ public interface CommentService {
 	Comment save(Comment comment);
 
 	List<Comment> findAll();
-
+	
 	Comment findById(Integer id);
+
+	List<Comment> findAllByPostId(Integer post_id);
 
 }

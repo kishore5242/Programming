@@ -3,6 +3,7 @@ package com.kishore5242.blog.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,15 @@ public class CommentDaoImpl implements CommentDao {
 	public Comment findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Comment.class, id);
+	}
+
+	@Override
+	public List<Comment> findAllByPostId(Integer post_id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Comment where post_id=:i");
+		query.setParameter("i", post_id);
+		List<Comment> list = query.list();
+		return list;
 	}
 
 	

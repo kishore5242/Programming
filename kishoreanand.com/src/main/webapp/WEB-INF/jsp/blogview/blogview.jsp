@@ -5,6 +5,12 @@
 <html lang="en">
 <head>
 <jsp:include page="/WEB-INF/jsp/header/header.jsp" />
+
+<!-- Lightweight client-side loader that feature-detects and load polyfills only when necessary -->
+<script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js"></script>
+<!-- Load the element definition -->
+<script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js"></script>
+
 </head>
 <body>
 
@@ -52,7 +58,8 @@
 				<div class="moreInfo">
 					<div class="thepost">
 						<c:catch var="fileError">
-							<c:import url="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}"/>
+							<%-- <c:import url="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}"/> --%>
+							<zero-md src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}"></zero-md>
 						</c:catch>
 						<c:if test="${not empty fileError}">
 						  	<h3>No posts yet</h3>

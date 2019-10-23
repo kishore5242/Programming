@@ -1,5 +1,6 @@
 package com.kishore5242.blog.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,10 +36,16 @@ public class CommentController {
 	}
 	
 	@GetMapping(value = "/comments")
-	public @ResponseBody List<Comment> getAllComment() {
+	public @ResponseBody List<Comment> getAllComment(@RequestParam Integer post_id) {
 		
-		List<Comment> comments = commentService.findAll();
-
+		List<Comment> comments = new ArrayList<Comment>();
+		
+		if(null != post_id && post_id > 0) {
+			comments = commentService.findAllByPostId(post_id);
+		} else {
+			comments = commentService.findAll();
+		}
+		
 		
 		Collections.sort(comments, new Comparator<Comment>() {
 			@Override
@@ -60,7 +68,7 @@ public class CommentController {
 				}
 			}
 		}
-		
+	
 		return comments;
 	}
 	
