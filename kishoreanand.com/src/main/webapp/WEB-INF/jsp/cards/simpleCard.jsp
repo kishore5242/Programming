@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<title>${requestScope.topic.topic_name}</title>
 <jsp:include page="/WEB-INF/jsp/header/header.jsp" />
 <script src="${pageContext.request.contextPath}/js/jquery.ui.touch-punch.js"></script>
 </head>
@@ -25,6 +26,22 @@
 			</div>			
 		</div>
 	</div>
+	
+<%-- 	
+	<div class="row">
+		<div class="col-xs-12">
+			<sec:authorize access="!isAuthenticated()">
+				<div class="text-center">
+					<button class="btn btn-primary" data-toggle="collapse" data-target="#fc_tutorial">Create your own flashcards !</button>
+				</div>
+				<br><br>
+				<div id="fc_tutorial" class="collapse">
+					<jsp:include page="/WEB-INF/jsp/fc_tutorial.jsp" />
+				</div>
+			</sec:authorize>
+		</div>
+	</div>
+ --%>
 
 	<div class="row cardControlRow">
 		<div class="col-xs-12">

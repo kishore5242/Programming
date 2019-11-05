@@ -28,11 +28,11 @@
 				<input type="hidden" class="form-control" id="post_id" value="${requestScope.post.post_id}" name="post_id">
 			</div>
 			<div class="form-group">
-				<label for="downloadfile">Download HTML:</label> <br>
+				<label for="downloadfile">Download Marker File:</label> <br>
 				<a href="${pageContext.request.contextPath}/uploaded/${requestScope.post.post_html_path}" download>Click here to download the existing HTML file</a>
 			</div>
 			<div class="form-group">
-				<label for="htmlfile">Upload HTML:</label><br>
+				<label for="htmlfile">Upload Marker File:</label><br>
 				<input class="form-control" type="file" id="htmlfile" name="htmlfile" accept=".md, .html, .htm"/>
 			</div>	
 			<div class="form-group">

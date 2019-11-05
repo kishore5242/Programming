@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<title>Flashcards</title>
 <jsp:include page="/WEB-INF/jsp/header/header.jsp" />
 </head>
 <body>
@@ -21,7 +22,7 @@
 		</sec:authorize>
 		<div class="row">
 			<div class="col-xs-12">
-				<h3 class="notCard">Streams:</h3>
+				<h3 class="notCard">Flashcard Collections:</h3>
 
 				<div class="listMenu">
 					<c:forEach items="${requestScope.streams}" var="stream" varStatus="loop">
@@ -39,6 +40,24 @@
 					 </c:forEach>
 				</div>
 			</div>
+
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<sec:authorize access="!isAuthenticated()">
+					<div class="text-center">
+						<button class="btn btn-primary" data-toggle="collapse" data-target="#fc_tutorial">Create your own flashcards !</button>
+					</div>
+					<br><br>
+					<div id="fc_tutorial" class="collapse">
+						<jsp:include page="/WEB-INF/jsp/fc_tutorial.jsp" />
+					</div>
+				</sec:authorize>
+			</div>
+		</div>
+		
+		<div class="row">
 			<div class="col-xs-12">
 				<div class="moreInfo">
 					<h4 class="notCard">Why Flashcards?</h4>
@@ -48,7 +67,7 @@
 				</div>
 			</div>
 		</div>
-
+		
 	</div>
 	
 	<jsp:include page="/WEB-INF/jsp/footer/footer.jsp" />

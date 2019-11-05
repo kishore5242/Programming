@@ -95,7 +95,18 @@ h2.notCard {
 /* navbar styling end */
 
 
+.container {
+	margin-bottom: 50px;
+}
 
+.alertMessage {
+	position: absolute;
+    left: 10%;
+    right: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
 
 /* button styling */
 
@@ -121,10 +132,31 @@ h2.notCard {
     text-align: right;
 }
 
-.welcomeDiv {
-    text-align: center;
-    font-family: monospace;
-    margin-top: 100px;	
+
+.thumbnailDiv {
+    padding: 20px;
+    max-width: 500px;
+    height: 320px;
+  	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  	text-align: center;
+  	background-color: #f9f3eb;
+  	border-radius: 10px;
+  	margin: 15px 0px 15px 0px;
+}
+
+.thumbnailDiv:hover {
+	box-shadow: 0 14px 18px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.thumbnailWrap {
+    height: 250px;
+  	overflow: hidden;
+  	background-color: rgb(255, 255, 255, 0.0);
+}
+
+.thumbnailWrap > img {
+	width: auto;
+	height: 245px;
 }
 
 img.tutorial-img {
@@ -135,23 +167,24 @@ img.tutorial-img {
 }
 
 .moreInfo {
-    font-style: italic;
+    /* font-style: italic; */
     background: beige;
     border-radius: 10px;
-    box-shadow: 2px 2px grey;
+    /* box-shadow: 2px 2px grey; */
     padding: 20px;
     margin-top: 25px;
-    width: fit-content;
+    /* width: fit-content; */
 }
 
 .additionalInfo {
-    font-style: italic;
+    /* font-style: italic; */
     background: #d7ffd4;
     border-radius: 10px;
     box-shadow: 2px 2px grey;
     padding: 20px;
     margin-top: 25px;
-    width: max-content;
+    /* width: max-content; */
+    line-height: 0px;
 }
 
 button.btn {
@@ -322,16 +355,6 @@ a.navLink {
 	font-size: 13px;
 }
 
-.cardLeft {
-	float: left;
-	line-height: 0px;
-}
-
-.cardRight {
-	float: right;
-	line-height: 0px;
-}
-
 .card-back-text img {
     max-width: 100%;
     height: auto;
@@ -461,3 +484,19 @@ textarea {
 	line-height: 35px;
 	/* text-decoration: underline; */
 }
+
+/* post related */
+
+.lightInfo {
+	color: grey;
+}
+
+.postArticle {
+	margin-top: 5px;
+}
+
+.replytextarea {
+	width: 100%;
+}
+
+/* post related ends */

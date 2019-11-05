@@ -29,7 +29,7 @@
 						<input type="text" class="form-control" id="post_name" placeholder="Enter post name" name="post_name" required="required">
 					</div>
 					<div class="form-group">
-						<label for="htmlfile">Upload HTML:</label><br>
+						<label for="htmlfile">Upload Marker File:</label><br>
 						<input class="form-control" type="file" id="file" name="file" required="required" accept=".md, .html, .htm"/>
 						
 					</div>

@@ -8,6 +8,7 @@
 <head>
 <title>KishoreAnand.com</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Here you can create and manage your flashcards. You can also find some interesting articles on software technologies">
 <meta charset="UTF-8">
 
 <!-- favicon -->
@@ -150,6 +151,9 @@
 		     <sec:authorize access="isAuthenticated()">
 		     	<li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
 		     </sec:authorize> 
+		     <sec:authorize access="!isAuthenticated()">
+		     	<li><a href="${pageContext.request.contextPath}/fctutorial">Create your own flashcards!</a></li>
+		     </sec:authorize>
 		</ul>
 		<div class="icon" onclick="toggleResponsive()">
 	    	<i class="fa fa-bars"></i>

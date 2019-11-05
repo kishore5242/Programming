@@ -9,10 +9,17 @@
 
 <div class="container">
 
-    <div class="starter-template">
-        <h3 class="notCard">403 - Access is denied</h3>
-        <div>Sorry <sec:authentication property="principal.username"/>! you do not have permission to access this page.</div>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="alert alert-danger center">
+					<img src="${pageContext.request.contextPath}/img/global/x.svg" class="error-img" alt="Error" >
+					<strong>403</strong> <br><br>
+					<div>Sorry <sec:authentication property="principal.username"/>! you do not have permission to access this page.</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
 

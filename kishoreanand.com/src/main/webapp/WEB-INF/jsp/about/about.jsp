@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>Kishore Anand</title>
 	<jsp:include page="/WEB-INF/jsp/header/header.jsp" />
 </head>
 <body>

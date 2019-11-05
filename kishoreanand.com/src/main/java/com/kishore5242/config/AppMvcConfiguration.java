@@ -1,9 +1,13 @@
 package com.kishore5242.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import com.kishore5242.interceptor.AppInterceptor;
 
 @Configuration
 public class AppMvcConfiguration extends WebMvcConfigurerAdapter {
@@ -14,6 +18,9 @@ public class AppMvcConfiguration extends WebMvcConfigurerAdapter {
 	
 	@Value("${files.upload.loc}")
 	private String uploadedFiles;
+	
+	@Autowired
+	AppInterceptor appInterceptor;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -30,4 +37,9 @@ public class AppMvcConfiguration extends WebMvcConfigurerAdapter {
 		}
 	}
 
+	   @Override
+	   public void addInterceptors(InterceptorRegistry registry) {
+	      registry.addInterceptor(appInterceptor);
+	   }
+	
 }

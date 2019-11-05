@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<title>${blog.blog_name}</title>
 <jsp:include page="/WEB-INF/jsp/header/header.jsp" />
 
 <!-- Lightweight client-side loader that feature-detects and load polyfills only when necessary -->
-<script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2/webcomponents-loader.min.js"></script> -->
 <!-- Load the element definition -->
 <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@1/src/zero-md.min.js"></script>
 
@@ -58,27 +59,40 @@
 				<div class="moreInfo">
 					<div class="thepost">
 						<c:catch var="fileError">
-							<%-- <c:import url="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}"/> --%>
-							<zero-md src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}"></zero-md>
+							<center><h2><b>${displaypost.post_name}</b></h2></center>
+							<br>
+							<div class="postArticle">
+								<%-- <c:import url="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}"/> --%>
+								<zero-md 
+									css-urls='["${pageContext.request.contextPath}/css/zeromd/github-markdown.css", "${pageContext.request.contextPath}/css/zeromd/prism.css"]'
+									src="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/uploaded/${displaypost.post_html_path}">
+								</zero-md>
+							</div><br><br><br>
+							<div class="row">
+								<div class="col-sm-6" style="text-align: left;">
+									<span class="lightInfo"><b>Author: </b>${displaypost.post_author}</span>
+								</div>
+								<div class="col-sm-6 center" style="text-align: right;">
+									<span class="lightInfo"><b>Last modified: </b>${displaypost.post_modified}</span>
+								</div>
+							</div>
 						</c:catch>
 						<c:if test="${not empty fileError}">
 						  	<h3>No posts yet</h3>
 						 </c:if>
+					</div>		
+				</div>
+				
+				<div class="row">
+					<div class="col-sm-12">
+						<jsp:include page="/WEB-INF/jsp/comment/client.jsp" />
 					</div>
 				</div>
-				<div class="additionalInfo">
-					<div>
-				 		<span class="cardLeft"><b>Author: </b>${displaypost.post_author}</span> &nbsp;&nbsp;&nbsp;&nbsp;
-				 		<span class="cardRight"><b>Modified: </b>${displaypost.post_modified}</span>
-			 		</div>
-				</div>
-				<br>
-				<jsp:include page="/WEB-INF/jsp/comment/client.jsp" />
-				<br>
-				<br>
-				<br>
+		
 			</div>
 		</div>
+
+
 
 	</div>
 	

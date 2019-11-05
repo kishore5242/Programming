@@ -5,6 +5,13 @@
 </head>
 <body>
 
+    <%
+        response.setStatus(301);
+        response.setHeader("Location", request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/?notfound");
+        response.setHeader("Connection", "close");
+    %>
+
+<%-- 
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
@@ -16,7 +23,8 @@
 			</div>
 		</div>
 	</div>
-
+ --%>
+ 
 	<jsp:include page="/WEB-INF/jsp/footer/footer.jsp" />
 
 </body>

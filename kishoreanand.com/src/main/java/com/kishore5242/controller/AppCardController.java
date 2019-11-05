@@ -35,6 +35,12 @@ public class AppCardController {
 	
 	List<Flashcard> allFlashcards = new ArrayList<>();
 	
+	@RequestMapping("/fctutorial")
+	public String getFcTutorial(HttpServletRequest request, HttpServletResponse response) {
+
+		return "cards/tutorial";
+	}
+	
 	@RequestMapping("/cards")
 	public String getCards(HttpServletRequest request, HttpServletResponse response) {
 			

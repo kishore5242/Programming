@@ -12,13 +12,13 @@
 
 <style>
 .comment {
-	background-color: #ccffcc;
+	background-color: #f5f5f5;
 	padding: 10px;
 	border-radius: 10px;
 }
 
 .commenteditor {
-	background-color: #ccffff;
+	background-color: #ddffcc;
 	padding: 5px 10px 10px 10px;
 	border-radius: 10px;
 	margin: 10px 0 20px 0;
@@ -26,36 +26,68 @@
 </style>
 
 <body>
-
-	<h4>Comments:</h4>
+	<br>
+	
+	<h4><u>Comments</u>:</h4>
     <div id="result">
-    </div>
-    
-    <div id='editor' class="commenteditor">
-    	<form class="commenteditorform">
-	        <h4>Leave a comment</h4>
-			<input type="hidden" class="postid" name="postid" value="${displaypost.post_id}">
-			<input type="text" class="name" name="name" placeholder="Name" required="required"><br/><br/>
-			<input type="text" class="email" name="email" placeholder="Email" required="required"><br/><br/>
-			<textarea class="replytextarea" name="value" rows="4" cols="50" required="required"></textarea></br><br/>
-			<input type="hidden" class="parent_id" name="parent_id" value="0">
-			<input type="submit" value="submit">
-		</form>
     </div>
 	
 	<div id="replyeditorcontainer" style="display: none;">
 		<div id='replyeditor' class="commenteditor">
 			<form class="commenteditorform">
-				<h4>Reply to the comment</h4>
+				<h4>Reply to this comment</h4>
+				
 				<input type="hidden" class="postid" name="postid" value="${displaypost.post_id}">
-				<input type="text" class="name" name="name" placeholder="Name" required="required"><br/><br/>
-				<input type="text" class="email" name="email" placeholder="Email" required="required"><br/><br/>
-				<textarea class="replytextarea" name="value" rows="4" cols="50" required="required"></textarea></br><br/>
+				
+	    		<div class="form-group">
+					<label for="exampleInputEmail1">Name</label>
+				    <input type="text" class="form-control name" id="name" name="name" placeholder="Your name" required="required"">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Email address</label>
+					<input type="email" class="form-control email" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" required="required"">
+					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+				</div>
+				<div class="form-group">
+					<textarea class="form-control replytextarea" id="value" name="value" rows="4" required="required"></textarea>
+				</div>
+
 				<input type="hidden" class="parent_id" name="parent_id" value="replyToId">
-				<input type="button" value="cancel" onclick="closeParent(this)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="submit" value="Submit">
+				
+				<div class="text-center">
+					<button type="button" class="btn btn-warning btn-sm" onclick="closeParent(this)">Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="submit" class="btn btn-success btn-sm">Submit</button>
+				</div>
+
 			</form>
 		</div>
+	</div>
+    
+    <div class="editorToggle">
+		<h4><u>Leave a comment</u>:</h4>
+		<div id='editor' class="commenteditor">
+	    	<form class="commenteditorform">
+	    		<br>
+	    		<input type="hidden" class="postid" name="postid" value="${displaypost.post_id}">
+	    		<div class="form-group">
+					<label for="exampleInputEmail1">Name</label>
+				    <input type="text" class="form-control name" id="name" name="name" placeholder="Your name" required="required"">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">Email address</label>
+					<input type="email" class="form-control email" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" required="required"">
+					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+				</div>
+				<div class="form-group">
+					<textarea class="form-control replytextarea" id="value" name="value" rows="4" required="required"></textarea>
+				</div>
+				<input type="hidden" class="parent_id" name="parent_id" value="0">
+				<div class="text-center">
+					<button type="submit" class="btn btn-success btn-sm">Submit</button>
+				</div>
+				<br>
+			</form>
+	    </div>
 	</div>
     
 </body>
@@ -68,11 +100,11 @@ var commentSubmitEvent = function(event){
     event.preventDefault();
     var formEl = $(this);
 	var inputData = {
-			postid: formEl.children('.postid').val(),
-			value: formEl.children('.replytextarea').val(),
-			email: formEl.children('.email').val(),
-			name: formEl.children('.name').val(),
-			parent_id: formEl.children('.parent_id').val()	
+			postid: formEl.find('.postid').val(),
+			value: formEl.find('.replytextarea').val(),
+			email: formEl.find('.email').val(),
+			name: formEl.find('.name').val(),
+			parent_id: formEl.find('.parent_id').val()	
 		};
     
 	$.ajax({
@@ -82,13 +114,16 @@ var commentSubmitEvent = function(event){
 		contentType: 'application/json',
 		data: JSON.stringify(inputData),
 		success: function(data){
-			refreshComments();
-			formEl.children('.replytextarea').val('')
-			formEl.parent().hide(1000);
+			formEl.find('.replytextarea').val('')
+			formEl.parent().hide(3000);
 		    setTimeout(function() {
 		    	formEl.parent().show(1000);
 		    }, 5000);
-		}
+		    hideLoader();
+		},
+		complete: function(data) {
+			refreshComments();
+        }
 	});
 	
 };
@@ -120,13 +155,15 @@ function refreshComments(){
 		
 		$("#result").html(commHtml);
 	});
+
+	$('.editorToggle').show();
 }
 
 
 function formatHtmlValue(commentData){
 	var pxIndent = commentData.indent * 50;
 	return "<div class='comment' style='margin-left:"+pxIndent+"px'><pre><code>"+htmlEncode(commentData.value)+"</code></pre>"+
-	"</br>- <b>"+commentData.name+"</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' onclick='showCommentEditor("+commentData.id+",this)'>reply</a>"
+	"- <b>"+commentData.name+"</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href='#' class='editorToggle' onclick='showCommentEditor("+commentData.id+",this)'>reply</a>"
 	+"</div>";
 }
 
@@ -136,17 +173,24 @@ function showCommentEditor(replyToId, el){
 	replyEditorHtml = replaceAll(replyEditorHtml, "replyToId", replyToId)
 	
 	$(el).parent().append(replyEditorHtml);
+
+	//$(replyEditorHtml).insertAfter($(el).parent());
+	
 	$([document.documentElement, document.body]).animate({
         scrollTop: $(el).offset().top
     }, 500);
 	$(el).find('.replytextarea').focus();	
+
+	$('.editorToggle').hide();
 	
 	$(el).parent().find('.commenteditorform').submit(commentSubmitEvent);
 
 }
 
 function closeParent(el){
-	$(el).parent().remove();
+	//$(el).parents('#replyeditor').remove();
+	$(el).parents('#replyeditor').hide('slow', function(){ $(el).parents('#replyeditor').remove(); });
+	$('.editorToggle').show();
 }
 
 function escapeRegExp(string){

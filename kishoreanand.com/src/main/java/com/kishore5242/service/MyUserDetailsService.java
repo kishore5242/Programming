@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,7 @@ import com.kishore5242.dao.UserDao;
 @Service("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {
 
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	//private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	//get user from the database, via Hibernate
 	@Autowired
